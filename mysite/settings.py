@@ -11,18 +11,16 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
-import psycopg2
-import dj_database_url
+# import psycopg2
+# import dj_database_url
 import environ
-from environ import Env
-env = Env()
 env = environ.Env()
 env.read_env(".env")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-os.environ.setdefault('DATABASE_URL', 'postgres://aivlrtbvmwdhka:d3e6019752a20086c87d5add79bb2ed4c1de004c8caea0c9c771ebf3f8f337fa@ec2-34-193-110-25.compute-1.amazonaws.com:5432/d7d4tibl4m093s6')
-DATABASE_URL = os.environ['DATABASE_URL']
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+# os.environ.setdefault('DATABASE_URL', 'postgres://aivlrtbvmwdhka:d3e6019752a20086c87d5add79bb2ed4c1de004c8caea0c9c771ebf3f8f337fa@ec2-34-193-110-25.compute-1.amazonaws.com:5432/d7d4tibl4m093s6')
+# DATABASE_URL = os.environ['DATABASE_URL']
+# conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -96,10 +94,10 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 
@@ -167,5 +165,5 @@ Configuration.configure(
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CELERY_ALWAYS_EAGER = True
 
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# import dj_database_url
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
