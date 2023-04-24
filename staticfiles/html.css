@@ -1,0 +1,33 @@
+body{
+    background-color: #ffffff;
+    opacity: 1;
+    background-image:  linear-gradient(#f1faff 1.9000000000000001px, transparent 1.9000000000000001px), linear-gradient(to right, #f1faff 1.9000000000000001px, #ffffff 1.9000000000000001px);
+    background-size: 38px 38px;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    font-weight: 800;
+    margin: 0;
+    /* background-color: #47B5FF; */
+    -webkit-font-smoothing: antialiased;
+    min-width: 990px;
+    display: block;
+    position: relative;
+}
+* { box-sizing: border-box; }
+:root {
+    --uk-leader-fill-content: .;
+}
+:root {
+    --uk-breakpoint-s: 640px;
+    --uk-breakpoint-m: 960px;
+    --uk-breakpoint-l: 1200px;
+    --uk-breakpoint-xl: 1600px;
+}
+*, *::before, *::after {
+    box-sizing: border-box;
+
+}
+
+
+
