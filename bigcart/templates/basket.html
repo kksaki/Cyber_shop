@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Bakset
+{% endblock %}
+
+{% block page_content %}
+
+<h2 class="title">Your Cart</h2>
+
+<div class="table_c1" ">
+  <table>
+
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+        <th>Unit price</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>
+              <form action="{% url "cart_add" product.productNo %}" method="post">
+              {{ item.update_quantity_form.quantity }}
+              {{ item.update_quantity_form.update }}
+              <input class="btn btn-primary" type="submit" value="Update">
+              {% csrf_token %}
+              </form>
+            </td>
+            <td>
+              <form action="{% url 'cart_remove' product.productNo %}" method="post">
+              <input class="btn btn-primary" type="submit" value="Remove">
+              {% csrf_token %}
+              </form>
+            </td>
+            <td class="num">${{ item.price }}</td>
+            <td class="num">${{ item.total_price }}</td>
+          </tr>
+          {% endwith %}
+          {% endfor %}
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      {% if cart.coupon %}
+        <tr class="subtotal">
+          <td><b style="color:#06283D">Subtotal</b></td>
+          <td colspan="6"></td>
+          <td class="num"><b style="color:#06283D">${{ cart.get_total_price|floatformat:"2" }}</b></td>
+        </tr>
+        <tr>
+          <td>
+            <b style="color:#ffaf03">            "{{ cart.coupon.code }}" coupon
+              ({{ cart.coupon.discount }}% off)</b>
+
+          </td>
+          <td colspan="6"></td>
+
+          <td class="num neg">
+            <b style="color:#ffaf03"> - ${{ cart.get_discount|floatformat:"2" }}</b>
+          </td>
+        </tr>
+      {% endif %}
+      <tr class="total">
+        <td><b style="color:#1363DF">Total</b></td>
+        <td colspan="6"></td>
+
+        <td class="num">
+          <b style="color:#1363DF">${{ cart.get_total_price_after_discount|floatformat:"2" }}</b>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+  <div class="button1">
+    <a  class="button1" href="{% url 'list' %}" class="button light">
+        <span class="button_a">Continue shopping</span>
+    </a>
+    <span class="button_b">   </span>
+    <a class="button1" href="{% url 'purchase' %}" class="button light">
+        <span class="button_a">checkout</span>
+    </a>
+  </div>
+  <div class="chartrap">
+    <h1><b>Apply a coupon!</b></h1>
+    {% csrf_token %}
+    <form style="border-color: #fff;" action="{% url "apply" %}" method="post">
+      {% csrf_token %}
+      {{ coupon_apply_form }}
+      <input class="btn btn-warning" type="submit" value="Apply">
+      {% csrf_token %}
+    </form>
+    <p>     </p>
+    <p>Optional discount code: <b>666, 8888</b></p>
+
+  </div>
+
+<div class="block">
+
+</div>
+{% block footer %}
+{% endblock %}
+<style>
+  .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:70px;
+    }
+    .block{
+        margin: bottom 80px;
+    }
+
+    .table_c1{
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
+.button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 10px;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+.button_a {
+  height:40px;
+  width:200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #47B5FF;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.button_b {
+  height:40px;
+  width:50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 1;
+
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.button_a:hover {
+  background-color: #47B5FF;
+  color: #fff;
+}
+
+  .chartrap{
+        width: 450px;
+        height: 200px;
+        margin: 0 auto;
+        margin-top: 30px;
+        background-color: #47B5FF;
+        color:#fff;
+        margin-bottom:60px;
+        padding:20px;
+        border:5px solid #009dff;
+        border-radius: 10px;
+        text-align: center;
+
+        font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+    }
+</style>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Website
+{% endblock %}
+
+{% block page_content %}
+
+<div class="logy">
+    <h1 class="title">Pay by credit card</h1>
+    <div class="my-div">
+        <form action="." id="payment" method="post" class="my-form">
+
+          <label for="card-number" class="tabletip"><i class="bi bi-credit-card"></i> Card Number</label>
+          <div id="card-number" class="tableinput"></div>
+
+          <label for="cvv" class="tabletip"><i class="bi bi-robot"></i> CVV</label>
+          <div id="cvv" class="tableinput"></div>
+
+          <label for="expiration-date" class="tabletip"><i class="bi bi-calendar2-day"></i> Expiration Date</label>
+          <div id="expiration-date" class="tableinput"></div>
+
+          <input type="hidden" id="nonce" name="payment_method_nonce" value="">
+          {% csrf_token %}
+          <input type="submit" value="Pay" class="submmit" >
+        </form>
+    </div>
+
+</div>
+
+
+<style>
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        padding-bottom: 50px;
+    }
+
+    .logy{
+        height: 600px;
+        width: 650px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding:10px;
+        font-size: 12px;
+        background-color: #fff;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        }
+    .my-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        }
+    .tabletip{
+        font-size: 15px;
+        margin-top: 18px;
+        margin-bottom: 3px;
+        color:#06283D;
+        font-weight: 500;
+    }
+    .my-form .tableinput {
+        border:1px solid #e0e1e2;
+        width:500px;
+        background-color: transparent;
+        border-radius: 0px;
+        height: 45px;
+        color:#06283D;
+        font-size: 12px;
+    }
+    .submmit{
+        border:1px solid #47B5FF;
+        width:500px;
+        background-color: #47B5FF;
+        border-radius: 0px;
+        height: 45px;
+        color:#06283D;
+        margin-top:40px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-weight: 400;
+
+    }
+</style>
+
+
+<!-- Load the required client component. -->
+<script src="https://js.braintreegateway.com/web/3.29.0/js/client.min.js"></script>
+<!-- Load Hosted Fields component. -->
+<script src="https://js.braintreegateway.com/web/3.29.0/js/hosted-fields.min.js"></script>
+<script>
+  var form = document.querySelector('#payment');
+  var submit = document.querySelector('input[type="submit"]');
+
+  braintree.client.create({
+    authorization: '{{ client_token }}'
+  }, function (clientErr, clientInstance) {
+    if (clientErr) {
+      console.error(clientErr);
+      return;
+    }
+
+    braintree.hostedFields.create({
+      client: clientInstance,
+      styles: {
+        'input': {'font-size': '13px'},
+        'input.invalid': {'color': 'red'},
+        'input.valid': {'color': 'green'}
+      },
+      fields: {
+        number: {selector: '#card-number'},
+        cvv: {selector: '#cvv'},
+        expirationDate: {selector: '#expiration-date'}
+      }
+    }, function (hostedFieldsErr, hostedFieldsInstance) {
+      if (hostedFieldsErr) {
+        console.error(hostedFieldsErr);
+        return;
+      }
+
+      submit.removeAttribute('disabled');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+          if (tokenizeErr) {
+            console.error(tokenizeErr);
+            return;
+          }
+          // set nonce to send to the server
+          document.getElementById('nonce').value = payload.nonce;
+          // submit form
+          document.getElementById('payment').submit();
+        });
+      }, false);
+    });
+  });
+</script>
+
+{% endblock %}

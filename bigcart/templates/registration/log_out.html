@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Website
+{% endblock %}
+
+{% block page_content %}
+
+<div class="logy">
+  <h2 class="title">You've been logged out of Big&Basket</h2>
+
+  <div class="icon"><i class="bi bi-robot"></i></div>
+
+  <div class="title2"><a class="title" href ="{% url 'login' %}"> Click here to login again.</a></div>
+
+
+</div>
+<div style="margin-bottom: 90px;"></div>
+
+<style>
+      .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:80px;
+        text-decoration: none;
+
+    }
+    .title2{
+    text-align: center;
+    font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    font-weight: 300;
+    font-size: 25px;
+    margin-top:20px;
+  }
+
+  .icon{
+    text-align: center;
+    margin-top:50px;
+    font-size: 70px;
+    color:#47B5FF;
+  }
+
+    .logy{
+    height: 400px;
+    width: 800px;
+    font-weight: 300;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding:10px;
+    font-size: 12px;
+    background-color: #fff;
+    border:1px solid #47B5FF;
+    font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Website
+{% endblock %}
+
+
+
+{% block page_content %}
+
+<li>
+    <!-- rowling picture -->
+    <div id="carousel">
+        <ul> <!-- picturediv -->
+            <li>
+                <img src="{% static '11.png' %}" alt="Image1">
+            </li>
+            <li>
+                <img src="{% static '22.png' %}" alt="Image2">
+            </li>
+            <li>
+                <img src="{% static '33.png' %}" alt="Image3">
+            </li>
+        </ul>
+        <a href="{% url 'list' %}">
+            <button class="floating-button"><span>Start shopping now!</span></button>
+        </a>
+    </div>
+</li>
+<div class="block" style="padding-top:30px;">
+
+</div>
+
+{% endblock %}

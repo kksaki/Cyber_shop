@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Login
+{% endblock %}
+
+{% block page_content %}
+
+
+<div class="logy">
+    <h1 class="title">Login</h1>
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        Your username and password didn't match. Please try again.
+    </div>
+    {% endif %}
+    {%if next %}
+    {% if request.user.is_authenticated %}
+    <!-- proceed to requested page-->
+    {% else %}
+    <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+    {% endif %}
+    {% endif %}
+    <div class="my-div">
+        <form method="POST" action="{% url 'login' %}" class="my-form">
+            {% csrf_token %}
+            <div class="tabletip">{{ form.username.label_tag }}</div>
+            <div class="tableinput">{{ form.username }}</div>
+            <div class="tabletip">{{form.password.label_tag }}</div>
+            <div class="tableinput">{{form.password }}</div>
+            <input class="submmit" type="submit" value="Log in"name="Login"/>
+            <input type="hidden" name='next' value="{{ next }}"/>
+        </form>
+        <div style="font-size: 15px">
+            If you are a new user, please click <a href="{% url 'signup' %}" style="font-weight: bold;">here</a> for registration.
+        </div>
+    </div>
+</div>
+<div class="block">
+
+</div>
+
+<style>
+    .block{
+        margin-bottom: 70px;
+    }
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+    }
+    .logy{
+        height: 500px;
+        width: 650px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding:10px;
+        font-size: 12px;
+        background-color: #fff;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        }
+
+    .my-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        }
+    .tabletip{
+        font-size: 15px;
+        margin-top: 18px;
+        margin-bottom: 3px;
+        color:#06283D;
+        font-weight: 500;
+    }
+
+    .myform{
+        font-size: 12px;
+    }
+
+    .my-form .tableinput input[type="text"] {
+        border:1px solid #e0e1e2;
+        width:500px;
+        background-color: transparent;
+        border-radius: 0px;
+        height: 45px;
+        color:#06283D;
+        font-size: 12px;
+    }
+
+    .my-form .tableinput input[type="password"] {
+        border:1px solid #e0e1e2;
+        width:500px;
+        background-color: transparent;
+        border-radius: 0px;
+        height: 45px;
+        color:#06283D;
+        font-size: 12px;
+    }
+    .submmit{
+        border:1px solid #01C3CF;
+        width:500px;
+        background-color: #01C3CF;
+        border-radius: 0px;
+        height: 45px;
+        color:#ffffff;
+        margin-top:40px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+</style>
+
+{% endblock %}

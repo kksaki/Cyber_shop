@@ -1,0 +1,108 @@
+<div class="table_c1">
+    <div style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+    font-weight: 300;color: #47B5FF;"><i class="bi bi-box2-heart"></i> {{cnt}} Products.</div>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ProductName</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in page_obj %}
+            <tr>
+                <td>{{product.productNo}}</td>
+                <td><a style="text-decoration: none;" href="{% url 'details' productNo=product.productNo %}">{{product.productName}}</a></td>
+                <td>{{product.price}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="pagination" >
+    <span class="step-links">
+
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; First Page</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previouse Page</a>
+        {% endif %}
+
+        <span class="current-page">
+            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next Page</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last Page &raquo;</a>
+        {% endif %}
+
+    </span>
+</div>
+<div class="block">
+
+</div>
+
+<style>
+    .footer_black {
+        height:60px;
+
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        line-height: 60px;
+        font-size: 13px;
+        color: #fff;
+        background-color: #444;
+        font-weight: 200;
+    }
+
+    .good{
+        line-height: 60px;
+
+    }
+
+    .footer_black p {
+        margin: 0;
+        width: 100%;
+    }
+
+    .pagination {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.step-links {
+  display: inline-block;
+  float: none;
+}
+
+.step-links a {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.step-links a:hover {
+  background-color: #fff;
+  color: #444;
+  text-decoration: none;
+}
+
+.current-page {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.table_c1{
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
+
+</style>

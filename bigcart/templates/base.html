@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block css %}
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'html.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'list.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    {% endblock %}
+</head>
+<body>
+
+
+    <div class="header-top">
+        <div class="nav_container1">
+            <div class="d-flex mb-3"
+            style="
+            width:990px;
+            margin: 0 auto;
+            margin-bottom:10px;
+            font-size: 15px;
+            font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+            font-weight: 300;
+            padding-right: 0px;"
+            >
+                <div class="me-auto p-2" style="padding:0px !important;">
+                    <a class="logo1" href="{% url 'home' %}">
+                        <span>BIG&BASKET</span><i class="bi-emoji-kiss-fill"></i>
+                    </a>
+                </div>
+                <div class="p-2" style="padding:0px !important;">
+                    {% if user.is_authenticated %}
+                    <a class="customer" style="font-weight: 600; right:0px;" href="{% url 'customer_detail' username=user.username%}">
+                        <i class="bi bi-person-circle"></i>{{ user.username }}
+                    </a>
+                </div>
+                <div class="p-2" style="padding:0px !important;">
+                    <a class="customer" style="right:0px;width: 100px;" href="{% url 'logout' %}">
+                        <i class="bi bi-box-arrow-left"></i> LogOut
+                    </a>
+                    {% else %}
+                    <a class="customer" style="right:0px; " href="{% url 'login' %}">
+                        <i class="bi bi-box-arrow-in-right"></i> LogIn
+                    </a>
+                    {% endif %}
+                </div>
+
+                <div class="p-2" style="padding:0px !important;">
+                    <a class="customer"  style="right:0px;" href="{% url 'cart_detail' %}">
+                        <i class="bi bi-cart-fill"></i> Cart
+                    </a>
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="nav_container2" >
+                <div class="d-flex mb-3"
+                    style="
+                    width:990px;
+                    margin: 0 auto;
+                    padding-top:14px;
+                    font-size: 15px;
+                    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+                    font-weight: 300;
+                    padding-right: 0px;
+
+                ">
+                    <div class="me-auto p-2"><a href="{% url 'list' %}">| <i class="bi bi-stars"></i>All Product</a></div>
+                    <div class="me-auto p-2"><a href="{% url 'comparison' %}">| <i class="bi bi-stars"></i>Comparison</a></div>
+                    <div class="me-auto p-2"><a href="{% url 'order_list' %}">| <i class="bi bi-stars"></i>Orders</a></div>
+                    <div class="me-auto p-2"><a href="{% url 'search' %}">| <i class="bi bi-stars"></i>Search</a></div>
+                    <div class="p-2">
+                        {% with total_items=cart|length %}
+                          {% if cart|length > 0 %}
+                          <div class="cartinfo">Your cart:
+                            <a class="aa"style="text-decoration: none;color:#47B5FF;" href="{% url 'cart_detail' %}">
+                              <span>{{ total_items }} item{{ total_items|pluralize }},
+                              ${{ cart.get_total_price }}</span>
+                            </a></div>
+                          {% else %}
+                            <div class="cartinfo">Your cart is empty.</div>
+                          {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+    {% block content %}
+            {% block page_content %}
+            {% endblock %}
+    {% endblock %}
+    {% block footer %}
+    <div class="footer_black">
+        <p class="good" > © Bigbasket 2023 All Rights Reserved
+        </pclas>
+    </div>
+    <style>
+        .footer_black {
+
+        height:60px;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        line-height: 60px;
+        font-size: 13px;
+        color: #fff;
+        background-color: #444;
+        font-weight: 200;
+        }
+
+        .good{
+        line-height: 60px;
+
+        }
+
+        .footer_black p {
+        margin: 0;
+        width: 100%;
+        }
+    </style>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Checkout
+{% endblock %}
+
+{% block page_content %}
+
+<div class="logy">
+  <h1 class="title">Checkout</h1>
+        <div class="lefty">
+          <div class="lefty2">
+            <h3><i class="bi bi-bag-check-fill"></i>Your order</h3>
+            {% if cart.coupon %}
+            <tr class="subtotal">
+              <td><b><b>Subtotal: </b></b></td>
+              <td colspan="4"></td>
+              <td>${{ cart.get_total_price|floatformat:"2" }}</td>
+            </tr>
+            <tr>
+              <td>
+                "{{ cart.coupon.code }}" coupon
+                ({{ cart.coupon.discount }}% off)
+              </td>
+              <td colspan="4"></td>
+              <td>
+                - ${{ cart.get_discount|floatformat:"2" }}
+              </td>
+            </tr>
+          {% endif %}
+
+          <ul>
+            {% for item in cart %}
+              <li>
+                {{ item.quantity }}x {{ item.product.name }}
+                <span>${{ item.total_price|floatformat:"2" }}</span>
+              </li>
+            {% endfor %}
+            {% if cart.coupon %}
+              <li>
+                "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
+                <span>- ${{ cart.get_discount|floatformat:"2" }}</span>
+              </li>
+            {% endif %}
+          </ul>
+          <p><b><b>Total: </b></b> ${{ cart.get_total_price_after_discount|floatformat:"2" }}</p>
+          </div>
+
+
+        </div>
+        <div class="righty">
+          <form action="." method="post" class="my-form">
+            <div class="table">{{ form.as_p }}</div>
+            <p><input type="submit" value="Place order" class="submmit"></p>
+            {% csrf_token %}
+          </form>
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<style>
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+    }
+
+    .logy{
+        height: 800px;
+        width: 990px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding:10px;
+        padding-left:60px;
+        padding-right:60px;
+        font-size: 16px;
+        background-color: #fff;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-size: 16px;
+        }
+      .my-div {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        text-align: left;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-size: 16px;
+        }
+
+      .lefty{
+        margin-top: 80px;
+        width:55%;
+        float:left;
+        padding-left:0px;
+        padding: 10px;
+      }
+      .lefty2{
+        float:left;
+        padding-left:10px;
+        padding: 50px;
+        border:1px solid #06283D;
+        margin-right:170px;
+      }
+
+      .righty{
+          width:45%;
+          float:left;
+          padding-left:0px;
+          padding-top: 50px;
+    }
+
+    .submmit{
+        border:1px solid #47B5FF;
+        width:400px;
+        background-color: #47B5FF;
+        border-radius: 0px;
+        height: 45px;
+        color:#ffffff;
+        margin-top:15px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+
+    .table{
+        font-size: 15px;
+        margin-top: 18px;
+        margin-bottom: 3px;
+        color:#06283D;
+        font-weight: 500;
+    }
+    .my_form{
+      width:400px;
+
+    }
+    .my-form .table input[type="text"] {
+        border:1px solid #e0e1e2;
+        width:400px;
+        background-color: transparent;
+        border-radius: 0px;
+        height: 35px;
+        color:#06283D;
+        font-size: 12px;
+    }
+
+    .my-form .table input[type="email"] {
+        border:1px solid #e0e1e2;
+        width:400px;
+        background-color: transparent;
+        border-radius: 0px;
+        height: 35px;
+        color:#06283D;
+        font-size: 12px;
+    }
+</style>
+
+{% endblock %}

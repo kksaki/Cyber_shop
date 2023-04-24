@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping User
+{% endblock %}
+
+{% block page_content %}
+
+
+
+<div class="logy">
+
+    <h1 class="title">User Information</h1>
+    <ul class="list-group list-group-flush" style="margin-bottom: 50px;">
+        <li class="list-group-item">User Name : {{user.username}}</li>
+        <li class="list-group-item">First Name : {{user.first_name}}</li>
+        <li class="list-group-item">Last Name : {{user.last_name}}</li>
+        <li class="list-group-item">Email : {{user.email}}</li>
+        <li class="list-group-item">Created at : {{user.date_joined}}</li>
+    </ul>
+<style>
+    .title{
+    text-align: center;
+    font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    font-weight: 300;
+    margin-top:30px;
+    margin-bottom: 60px;
+}
+
+.logy{
+        height: 500px;
+        width: 650px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding:10px;
+        font-size: 12px;
+        background-color: #fff;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        }
+</style>
+
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Search
+{% endblock %}
+
+{% block page_content %}
+<script>
+    function setSortBy(s) {
+        document.getElementById('id_sort_by').value = s;
+    }
+</script>
+
+<div class="logy">
+    <h2 class="title">Search Products by Condition</h2>
+    <div class="my-div">
+    <form action="{% url 'search' %}" method="get" id="search"  class="my-form">
+        <div class="table">{{ form }}</div>
+        <input type="submit" class="submmit" value="Search">
+        <div class="table1" style="margin-top: 50px;">{{ form.get_rating_sort_button }}
+            {{ form.get_price_sort_button }}</div>
+    </form>
+    </div>
+
+</div>
+
+
+
+<style>
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        padding-bottom: 15px;
+    }
+
+    .logy{
+        height: 460px;
+        width: 990px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 20px;
+        padding:10px;
+        padding-left:50px;
+        padding-right:50px;
+        font-size: 17px;
+        background-color: #fff;
+        margin-bottom: 0px;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+
+        }
+
+    .my-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        }
+
+    .myform{
+        width: 600px;
+    }
+
+
+    .submmit{
+        border:1px solid #47B5FF;
+        width:890px;
+        background-color: #47B5FF;
+        border-radius: 0px;
+        height: 45px;
+        color:#ffffff;
+        margin-top:15px;
+        margin-bottom: 0px;
+        font-size: 18px;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+    }
+
+    .my-form .table input[type="button"] {
+        border:1px solid #e0e1e2;
+        width:80px;
+        background-color: #06283D;
+        border-radius: 0px;
+        height: 30px;
+        color:#ffffff;
+        font-size: 12px;
+        margin-top: 10px;
+
+    }
+    .my-form .table1 lable{
+        font-size: 10px;
+
+
+    }
+    input:not(:focus)::placeholder {
+        color: #999;
+        font-style: italic;
+}
+
+</style>
+
+{% if products %}
+{% include 'search_table.html' with rows=products cnt=cnt %}
+{% else %}
+    <p style="text-align: center; color:#ff4747; font-weight: 600; margin-top: 30px;"><i class="bi bi-exclamation-circle"></i> No products found. Start Search or Search again!</p>
+{% endif %}
+{% block footer %}
+{% endblock %}
+{% endblock %}
