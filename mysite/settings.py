@@ -36,7 +36,7 @@ SECRET_KEY = 'django-insecure-%2+i&z@xm)xj!hzu3-u$4+zrvzk3d$*)4300g=&)5@n*iu*981
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1','shrouded-everglades-97784.herokuapp']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','peaceful-forest-18662.herokuapp']
 
 
 # Application definition
