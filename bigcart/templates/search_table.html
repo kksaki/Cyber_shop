@@ -2,6 +2,16 @@
     <div style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
     font-weight: 300;color: #47B5FF;"><i class="bi bi-box2-heart"></i> {{cnt}} Products.</div>
     <table>
+        <div class="image-grid">
+            {% for product in products %}
+              <div class="image-box">
+                <a href="{% url 'details' productNo=product.productNo %}">
+                  <img src="{{ product.image.url }}" alt="{{ product.productName }}">
+                  <h3>{{ product.productName }}</h3>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
         <thead>
             <tr>
                 <th scope="col">No.</th>
@@ -28,6 +38,60 @@
         </tbody>
     </table>
 </div>
+
+
+{% if products.has_previous %}
+  <form id="form-page-1" action="" method="get" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="page" value="1">
+    <input type="hidden" name="productName" value="{{ form.productName.value }}">
+    <input type="hidden" name="category" value="{{ form.category.value }}">
+    <input type="hidden" name="type" value="{{ form.type.value }}">
+    <input type="hidden" name="brand" value="{{ form.brand.value }}">
+    <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+    <a href="#" onclick="document.getElementById('form-page-1').submit(); return false;">&laquo; first</a>
+  </form>
+  <form id="form-page-prev" action="" method="get" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="page" value="{{ products.previous_page_number }}">
+    <input type="hidden" name="productName" value="{{ form.productName.value }}">
+    <input type="hidden" name="category" value="{{ form.category.value }}">
+    <input type="hidden" name="type" value="{{ form.type.value }}">
+    <input type="hidden" name="brand" value="{{ form.brand.value }}">
+    <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+    <a href="#" onclick="document.getElementById('form-page-prev').submit(); return false;">previous</a>
+  </form>
+{% endif %}
+
+<span class="current-page">
+  Page {{ products.number }} of {{ products.paginator.num_pages }}.
+</span>
+
+{% if products.has_next %}
+  <form id="form-page-next" action="" method="get" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="page" value="{{ products.next_page_number }}">
+    <input type="hidden" name="productName" value="{{ form.productName.value }}">
+    <input type="hidden" name="category" value="{{ form.category.value }}">
+    <input type="hidden" name="type" value="{{ form.type.value }}">
+    <input type="hidden" name="brand" value="{{ form.brand.value }}">
+    <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+    <a href="#" onclick="document.getElementById('form-page-next').submit(); return false;">next</a>
+  </form>
+  <form id="form-page-last" action="" method="get" style="display: inline;">
+    {% csrf_token %}
+    <input type="hidden" name="page" value="{{ products.paginator.num_pages }}">
+    <input type="hidden" name="productName" value="{{ form.productName.value }}">
+    <input type="hidden" name="category" value="{{ form.category.value }}">
+    <input type="hidden" name="type" value="{{ form.type.value }}">
+    <input type="hidden" name="brand" value="{{ form.brand.value }}">
+    <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+    <a href="#" onclick="document.getElementById('form-page-last').submit(); return false;">last &raquo;</a>
+  </form>
+{% endif %}
+
+
+
 <div class="block">
 
 </div>
@@ -58,4 +122,49 @@
         margin: 0;
         width: 100%;
     }
+
+    .image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+.image-box {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+.image-box h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.image-box:hover img {
+  transform: scale(1.1);
+}
+
+.image-box:hover h3 {
+  opacity: 1;
+}
+
 </style>

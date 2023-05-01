@@ -6,12 +6,8 @@ Bigbasket Product List
 {% endblock %}
 
 {% block page_content %}
-<h2 class="title">All Product</h2>
-<div>
-    <a class="button1" href="{% url 'product_new' %}">
-        <div class="button_a">Add New Product</div>
-    </a>
-</div>
+
+
 <style>
     .title{
         text-align: center;
@@ -50,5 +46,6 @@ Bigbasket Product List
   color: #fff;
 }
 </style>
+
 {% include 'product_table.html' with rows=products cnt=cnt %}
 {% endblock %}

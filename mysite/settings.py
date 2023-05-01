@@ -165,9 +165,14 @@ Configuration.configure(
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CELERY_ALWAYS_EAGER = True
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
 # import dj_database_url
 
 
 # DATABASES = {
 #     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
 # }
+
+# CSRF_TRUSTED_ORIGINS = ['']

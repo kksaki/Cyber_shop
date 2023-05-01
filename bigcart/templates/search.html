@@ -12,10 +12,15 @@ Bigbasket Shopping Search
     }
 </script>
 
+
 <div class="logy">
     <h2 class="title">Search Products by Condition</h2>
     <div class="my-div">
+{% csrf_token %}
     <form action="{% url 'search' %}" method="get" id="search"  class="my-form">
+        {% csrf_token %}
+        <input type="hidden" name="page" value="{{ products.number }}">
+        {% csrf_token %}
         <div class="table">{{ form }}</div>
         <input type="submit" class="submmit" value="Search">
         <div class="table1" style="margin-top: 50px;">{{ form.get_rating_sort_button }}

@@ -8,7 +8,7 @@ urlpatterns = [
     path('list', views.product_list, name='list'),
     path('details/<slug:productNo>',views.details, name='details'),
     path('search',views.search, name='search'),
-    path('comparison',views.chart, name='comparison'),
+    path('management',views.chart, name='management'),
     path('edit/<slug:productNo>', views.product_edit, name='product_edit'),
     path('delete/<slug:productNo>', views.product_delete, name='product_delete'),
     path('new', views.product_new, name='product_new'),
@@ -34,4 +34,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 

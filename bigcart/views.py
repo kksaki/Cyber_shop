@@ -13,8 +13,13 @@ from .tasks import order_created
 from .models import Coupon
 from .forms import CouponApplyForm
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import user_passes_test
+from django.views.generic import ListView
 
 # Create your views here.
+def is_superuser(user):
+    return user.is_superuser
+
 def home(request):
     return render(request, 'home.html')
 
@@ -31,9 +36,9 @@ def details(request, productNo):
     cart_product_form = CartAddProductForm()
     return render(request, 'details.html', {'product': product, 'cart_product_form': cart_product_form})
 
-
-def comparison(request):
-    return render(request, 'comparison.html')
+@user_passes_test(lambda u: u.is_superuser)
+def management(request):
+    return render(request, 'management.html')
 
 def search(request):
     return render(request, 'search.html')
@@ -75,7 +80,7 @@ def product_delete(_request, productNo):
 
 def chart(request):
     category_rows = Product.objects.values('category').annotate(count=Count('productNo')).order_by('-count')
-    return render(request, 'comparison.html',
+    return render(request, 'management.html',
                   {'category_rows': {'label': [row["category"] for row in category_rows],
                                  'data': [row["count"] for row in category_rows]},
                    })
@@ -88,52 +93,69 @@ def product_list(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'list.html', {'page_obj': page_obj, 'cnt': len(product_list)})
 
+
+# class ContactListView(ListView):
+#     paginate_by = 20
+#     model = Product
+#     template_name = 'search_table.html'
+
+
 def search(request):
-    products = []
+    products = Product.objects.all()
     productName = ''
     category = ''
     d_type = ''
     brand = ''
     sort_by = "productNo"
+    page = ''
 
-    # Get values from query strings
-    if "productName" in request.GET:
-        productName = request.GET["productName"]
-    if "category" in request.GET:
-        category = request.GET["category"]
-    if "type" in request.GET:
-        d_type = request.GET["type"]
-    if "brand" in request.GET:
-        brand = request.GET["brand"]
-    if "sort_by" in request.GET:
-        sort_by = request.GET["sort_by"]
+    if request.method == 'GET':  # check if request method is POST
+        # Get values from POST data
+        page = request.GET.get('page', 1)
+        if "productName" in request.GET:
+            productName = request.GET["productName"]
+        if "category" in request.GET:
+            category = request.GET["category"]
+        if "type" in request.GET:
+            d_type = request.GET["type"]
+        if "brand" in request.GET:
+            brand = request.GET["brand"]
+        if "sort_by" in request.GET:
+            sort_by = request.GET["sort_by"]
 
-    # Initialise form values
-    form = SearchConditionForm(initial={
-        'productName': productName,
-        'category': category,
-        'type': d_type,
-        'brand': brand,
-        'sort_by': sort_by,
-    })
+        # Initialise form values
+        form = SearchConditionForm(initial={
+            'productName': productName,
+            'category': category,
+            'type': d_type,
+            'brand': brand,
+            'sort_by': sort_by,
+        })
 
-    # Create WHERE clause from query strings
-    where = []
-    if productName != '':
-        where.append(Q(productName__contains=productName))
-    if category != '':
-        where.append(Q(category=category))
-    if d_type != '':
-        where.append(Q(types_id=d_type))
-    if brand != '':
-        where.append(Q(brand_id=brand))
+        # Create WHERE clause from query strings
+        where = []
+        if productName != '':
+            where.append(Q(productName__contains=productName))
+        if category != '':
+            where.append(Q(category=category))
+        if d_type != '':
+            where.append(Q(types_id=d_type))
+        if brand != '':
+            where.append(Q(brand_id=brand))
 
-    if sort_by != '':
-        sort_by = sort_by
+        if sort_by != '':
+            sort_by = sort_by
 
-    # Do not show results in first access (without any conditions)
-    if len(request.GET) > 0:
-        products = Product.objects.all().filter(*where).order_by(sort_by)
+        # Do not show results in first access (without any conditions)
+        if len(request.GET) > 0:
+            products = Product.objects.all().filter(*where).order_by(sort_by)
+
+    else:  # if request method is not GET, show all products
+        form = SearchConditionForm()
+
+    paginator = Paginator(products, 20)  # Show 20 products per page
+    page_number = request.GET.get('page',1)
+    products = paginator.get_page(page_number)
 
     return render(request, 'search.html', {'products': products, 'cnt': len(products), 'form': form})
 

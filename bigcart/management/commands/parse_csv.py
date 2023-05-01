@@ -3,7 +3,12 @@ from pathlib import Path
 from django.core.management.base import BaseCommand
 from bigcart.models import Product, Category, Type, Brand, Customer, User
 from django.apps import apps
-from django.contrib.auth.models import User
+from django.conf import settings
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+import os
+import requests
 
 apps.clear_cache()
 
@@ -46,6 +51,8 @@ class Command(BaseCommand):
                 types.add(Type(id=type))
                 brands.add(Brand(id=brand))
 
+                image_path = os.path.join("products/", row[10])
+
                 product = Product(
                     productNo = (row[0]),
                     productName = (row[1]),
@@ -56,6 +63,7 @@ class Command(BaseCommand):
                     types_id = type,
                     rating = convert_blank(row[8]),
                     description = convert_blank(row[9]),
+                    image = image_path,
                 )
                 products.append(product)
 
@@ -65,3 +73,18 @@ class Command(BaseCommand):
             Product.objects.bulk_create(products)
 
             print("data parsed successfully")
+
+            for row in reader:
+                image_path = os.path.join("products/", row[10])
+                image_url = row[10]
+
+                # 如果图像已存在，则不复制
+                if os.path.exists(image_path):
+                    continue
+
+                # 复制图像
+                image_data = requests.get(image_url).content
+                with open(image_path, 'wb') as image_file:
+                    image_file.write(image_data)
+
+            print("Images copied successfully")

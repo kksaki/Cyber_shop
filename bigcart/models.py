@@ -26,7 +26,7 @@ class Product(models.Model):
     rating = models.FloatField(null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
-
+    image = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True)
 
 class Category(models.Model):
     id = models.TextField(primary_key=True)

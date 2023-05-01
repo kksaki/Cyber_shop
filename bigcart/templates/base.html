@@ -18,6 +18,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     {% endblock %}
+    <script>
+        function setSortBy(s) {
+            document.getElementById('id_sort_by').value = s;
+        }
+    </script>
 </head>
 <body>
 
@@ -84,10 +89,28 @@
                     padding-right: 0px;
 
                 ">
-                    <div class="me-auto p-2"><a href="{% url 'list' %}">| <i class="bi bi-stars"></i>All Product</a></div>
-                    <div class="me-auto p-2"><a href="{% url 'comparison' %}">| <i class="bi bi-stars"></i>Comparison</a></div>
+                <div class="me-auto p-2" style="margin-bottom: 10px !important; margin-top: 0px !important;padding-bottom: 20px !important; padding-top: 0px !important;height:50px !important;">
+                    <!-- <form style="margin-bottom: 10px !important;height:50px !important; padding-top: 0px !important;margin-top: 0px !important;" action="{% url 'search' %}" method="get" id="search" class="form-inline my-2 my-lg-0" >
+                        {% csrf_token %}
+                        <input type="hidden" name="page" value="{{ products.number }}" >
+                        <div class="table form-group" style="position:relative">
+                            {{ form.productName }}</div>
+                            <input type="text" id="id_query" placeholder="search" class="form-control mr-sm-2">
+
+                    </form> -->
+                    <form action="{% url 'search' %}" method="get" id="search"  class="my-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="page" value="{{ products.number }}">
+                        {% csrf_token %}
+                        <div class="table">{{ form.productName }}</div>
+                        <input type="submit" class="submmit" value="Search">
+                    </form>
+                </div>
+
+                    <div class="me-auto p-2"><a href="{% url 'search' %}">| <i class="bi bi-stars"></i>All Product</a></div>
+                    <div class="me-auto p-2"><a href="{% url 'management' %}">| <i class="bi bi-stars"></i>Management</a></div>
                     <div class="me-auto p-2"><a href="{% url 'order_list' %}">| <i class="bi bi-stars"></i>Orders</a></div>
-                    <div class="me-auto p-2"><a href="{% url 'search' %}">| <i class="bi bi-stars"></i>Search</a></div>
+
                     <div class="p-2">
                         {% with total_items=cart|length %}
                           {% if cart|length > 0 %}
