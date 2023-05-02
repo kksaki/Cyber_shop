@@ -14,90 +14,96 @@ from .models import Coupon
 from .forms import CouponApplyForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import user_passes_test
-from django.views.generic import ListView
 
 # Create your views here.
 def is_superuser(user):
     return user.is_superuser
 
+def base(request):
+    form2 = SearchConditionForm()
+    return render(request, 'base.html',{'form2': form2})
+
 def home(request):
-    return render(request, 'home.html')
+    form2 = SearchConditionForm()
+    return render(request, 'home.html',{'form2': form2})
 
 def product_list(request):
+    form2 = SearchConditionForm()
     product_list = Product.objects.all()
     product_list = Product.objects.order_by('productNo')
     paginator = Paginator(product_list, 20) # 每页展示10条数据
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'list.html', {'page_obj': page_obj, 'cnt': len(product_list)})
+    return render(request, 'product/list.html', {'page_obj': page_obj, 'cnt': len(product_list),'form2': form2})
 
 def details(request, productNo):
+    form2 = SearchConditionForm()
     product = get_object_or_404(Product, productNo=productNo)
     cart_product_form = CartAddProductForm()
-    return render(request, 'details.html', {'product': product, 'cart_product_form': cart_product_form})
+    return render(request, 'product/product_details.html', {'product': product, 'cart_product_form': cart_product_form,'form2': form2})
 
 @user_passes_test(lambda u: u.is_superuser)
 def management(request):
-    return render(request, 'management.html')
+    form2 = SearchConditionForm()
+    return render(request, 'management/management.html',{'form': form2})
 
-def search(request):
-    return render(request, 'search.html')
+
 
 
 def product_new(request):
+    form2 = SearchConditionForm()
     if request.method == "POST":
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST,request.FILES,)
         if form.is_valid():
             product = form.save(commit=False)
             product.save()
             return redirect('details', productNo=product.productNo)
     else:
         form = ProductForm()
-    return render(request, 'product_edit.html', {'form': form})
+    return render(request, 'product/product_edit.html', {'form': form,'form2': form2})
 
 
 def product_edit(request, productNo):
+    form2 = SearchConditionForm()
     product = get_object_or_404(Product, productNo=productNo)
 
     if request.method == "POST":
-        form = ProductForm(request.POST, instance=product)
+        form = ProductForm(request.POST, request.FILES,instance=product)
         if form.is_valid():
             product = form.save()
             product.created_date = timezone.now()
             product.save()
-
             return redirect('details', productNo=product.productNo)
     else:
         form = ProductForm(instance=product)
-    return render(request, 'product_edit.html', {'form': form, 'product': product})
+    return render(request, 'product/product_edit.html', {'form': form, 'product': product, 'form2':form2})
 
 
 def product_delete(_request, productNo):
+    form2 = SearchConditionForm()
     product = get_object_or_404(Product, productNo=productNo)
     product.delete()
     return redirect('list')
 
 
 def chart(request):
+    form2 = SearchConditionForm()
     category_rows = Product.objects.values('category').annotate(count=Count('productNo')).order_by('-count')
-    return render(request, 'management.html',
-                  {'category_rows': {'label': [row["category"] for row in category_rows],
+    return render(request, 'management/management.html',
+                  {'form2':form2,'category_rows': {'label': [row["category"] for row in category_rows],
                                  'data': [row["count"] for row in category_rows]},
                    })
 
-def product_list(request):
-    product_list = Product.objects.all()
-    product_list = Product.objects.order_by('productNo')
-    paginator = Paginator(product_list, 20) # 每页展示10条数据
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'list.html', {'page_obj': page_obj, 'cnt': len(product_list)})
+# def product_list(request):
+#     product_list = Product.objects.all()
+#     product_list = Product.objects.order_by('productNo')
+#     paginator = Paginator(product_list, 20) # 每页展示10条数据
+#     page_number = request.GET.get('page')
+#     page_obj = paginator.get_page(page_number)
+#     return render(request, 'product/list.html', {'page_obj': page_obj, 'cnt': len(product_list)})
 
 
-# class ContactListView(ListView):
-#     paginate_by = 20
-#     model = Product
-#     template_name = 'search_table.html'
+
 
 
 def search(request):
@@ -124,7 +130,7 @@ def search(request):
             sort_by = request.GET["sort_by"]
 
         # Initialise form values
-        form = SearchConditionForm(initial={
+        form2 = SearchConditionForm(initial={
             'productName': productName,
             'category': category,
             'type': d_type,
@@ -151,17 +157,18 @@ def search(request):
             products = Product.objects.all().filter(*where).order_by(sort_by)
 
     else:  # if request method is not GET, show all products
-        form = SearchConditionForm()
+        form2 = SearchConditionForm()
 
-    paginator = Paginator(products, 20)  # Show 20 products per page
+    paginator = Paginator(products, 40)  # Show 20 products per page
     page_number = request.GET.get('page',1)
     products = paginator.get_page(page_number)
 
-    return render(request, 'search.html', {'products': products, 'cnt': len(products), 'form': form})
+    return render(request, 'product/search.html', {'products': products, 'cnt': len(products), 'form2': form2})
 
 
 
 def signup(request):
+    form2 = SearchConditionForm()
     form = SignUpForm(request.POST)
     errors = []
 
@@ -180,31 +187,40 @@ def signup(request):
         login(request, user)
         return redirect('/')
 
-    return render(request, 'signup.html',
-                  {'form': form, 'password_helper': form.fields["password1"].help_text, 'errors': errors})
+    return render(request, 'registration/signup.html',
+                  {'form': form, 'password_helper': form.fields["password1"].help_text, 'errors': errors, 'form2':form2})
 
 
 
 
 @login_required
-def customer_list(request):
+def user_list(request):
+    form2 = SearchConditionForm()
     user = request.user
     if user.is_authenticated & user.is_staff:
         users = User.objects.all()
-        return render(request, 'customer_list.html', {'users' : users})
+        return render(request, 'management/user_list.html', {'users' : users, 'form2':form2})
     else:
         return redirect('login')
 
 def log_out(request):
+    form2 = SearchConditionForm()
     logout(request)
-    return render(request, 'registration/log_out.html')
+    return render(request, 'registration/log_out.html',{'form2':form2})
 
 
 
 @login_required
 def customer_detail(request, username):
+    form2 = SearchConditionForm()
     user = get_object_or_404(User, username=username)
-    return render(request, 'customer_detail.html', {'user' : user})
+    return render(request, 'customer_detail.html', {'user' : user,'form2':form2})
+
+@login_required
+def user_detail(request, username):
+    form2 = SearchConditionForm()
+    user = get_object_or_404(User, username=username)
+    return render(request, 'management/customer_detail.html', {'user' : user,'form2':form2})
 
 
 @require_POST
@@ -217,6 +233,7 @@ def cart_add(request, productNo):
         cart.add(product=product,
                  quantity=cd['quantity'],
                  update_quantity=cd['update'])
+
     return redirect('cart_detail')
 
 @require_POST
@@ -227,19 +244,21 @@ def cart_remove(request, productNo):
     return redirect('cart_detail')
 
 def cart_detail(request):
+    form2 = SearchConditionForm()
     cart = Cart(request)
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(
                           initial={'quantity': item['quantity'],
                           'update': True})
     coupon_apply_form = CouponApplyForm()
-    return render(request, 'basket.html', {'cart': cart,
-                   'coupon_apply_form': coupon_apply_form})
+    return render(request, 'order/basket.html', {'cart': cart,
+                   'coupon_apply_form': coupon_apply_form,'form2':form2})
 
 
 
 
 def purchase(request):
+    form2 = SearchConditionForm()
     if request.user.is_authenticated:
         user = request.user
         cart = Cart(request)
@@ -268,19 +287,34 @@ def purchase(request):
         else:
             form = OrderCreateForm()
         return render(request,
-                    'purchase.html',
-                    {'cart': cart, 'form': form})
+                    'order/purchase.html',
+                    {'cart': cart, 'form': form, 'form2':form2})
     else:
         return redirect('login')
 
 def order_list(request):
+    form2 = SearchConditionForm()
     if request.user.is_authenticated:
         user = request.user
         customer = request.user.id
         orders = Order.objects.filter(customer=customer)
-        return render(request, 'order_list.html', {'orders' : orders})
+        return render(request, 'order/order_list.html', {'orders' : orders,'form2':form2})
     else:
         return redirect('login')
+
+def all_order_list(request):
+    form2 = SearchConditionForm()
+    if request.user.is_authenticated:
+        orders = Order.objects.all()
+        return render(request, 'management/all_order_list.html', {'orders' : orders, 'form2':form2})
+    else:
+        return redirect('login')
+
+def order_detail(request, id):
+    form2 = SearchConditionForm()
+    order = get_object_or_404(Order, id=id)
+    order_items = OrderItem.objects.filter(order_id=order.id)
+    return render(request, 'management/order_detail.html', {'order': order,'order_items':order_items,'form2':form2})
 
 
 import braintree
@@ -288,6 +322,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Order
 
 def payment_process(request):
+    form2 = SearchConditionForm()
     order_id = request.session.get('order_id')
     order = get_object_or_404(Order, id=order_id)
 
@@ -317,13 +352,15 @@ def payment_process(request):
         return render(request,
                       'payment/process.html',
                       {'order': order,
-                       'client_token': client_token})
+                       'client_token': client_token,'from2':form2})
 
 def payment_done(request):
-    return render(request, 'payment/done.html')
+    form2 = SearchConditionForm()
+    return render(request, 'payment/done.html',{'form2':form2})
 
 def payment_canceled(request):
-    return render(request, 'payment/canceled.html')
+    form2 = SearchConditionForm()
+    return render(request, 'payment/canceled.html',{'form2':form2})
 
 @require_POST
 def coupon_apply(request):

@@ -1,0 +1,229 @@
+<div class="wow">
+  <div class="pagination">
+    <span class="step-links">
+  {% if products.has_previous %}
+    <form id="form-page-1" action="" method="get" style="display: inline;">
+      {% csrf_token %}
+      <input type="hidden" name="page" value="1">
+      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
+      <input type="hidden" name="category" value="{{ form2.category.value }}">
+      <input type="hidden" name="type" value="{{ form2.type.value }}">
+      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
+      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
+      <a href="#" onclick="document.getElementById('form-page-1').submit(); return false;">&laquo; first</a>
+    </form>
+    <form id="form-page-prev" action="" method="get" style="display: inline;">
+      {% csrf_token %}
+      <input type="hidden" name="page" value="{{ products.previous_page_number }}">
+      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
+      <input type="hidden" name="category" value="{{ form2.category.value }}">
+      <input type="hidden" name="type" value="{{ form2.type.value }}">
+      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
+      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
+      <a href="#" onclick="document.getElementById('form-page-prev').submit(); return false;">previous</a>
+    </form>
+  {% endif %}
+
+
+  <span class="current-page">
+    Page {{ products.number }} of {{ products.paginator.num_pages }}.
+  </span>
+
+  {% if products.has_next %}
+    <form id="form-page-next" action="" method="get" style="display: inline;">
+      {% csrf_token %}
+      <input type="hidden" name="page" value="{{ products.next_page_number }}">
+      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
+      <input type="hidden" name="category" value="{{ form2.category.value }}">
+      <input type="hidden" name="type" value="{{ form2.type.value }}">
+      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
+      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
+      <a href="#" onclick="document.getElementById('form-page-next').submit(); return false;">next</a>
+    </form>
+    <form id="form-page-last" action="" method="get" style="display: inline;">
+      {% csrf_token %}
+      <input type="hidden" name="page" value="{{ products.paginator.num_pages }}">
+      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
+      <input type="hidden" name="category" value="{{ form2.category.value }}">
+      <input type="hidden" name="type" value="{{ form2.type.value }}">
+      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
+      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
+      <a href="#" onclick="document.getElementById('form-page-last').submit(); return false;">last &raquo;</a>
+    </form>
+  </span>
+  </div>
+  {% endif %}
+
+    <div style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+    font-weight: 300;color: #47B5FF;"><i class="bi bi-box2-heart"></i> Product Count: {{ products.paginator.count }}</div>
+    <table>
+        <div class="image-grid">
+            {% for product in products %}
+              <div class="image-box">
+                <img src="{{ product.image.url }}" alt="{{ product.productName }}">
+
+              </div>
+              <div class="text">
+                <h7>£{{ product.price }}</h7>
+                <a href="{% url 'details' productNo=product.productNo %}" style="text-decoration: none;">
+                <p>{{ product.productName }}</p></a>
+
+              </div>
+
+            {% endfor %}
+          </div>
+        <!-- <thead>
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">ProductName</th>
+                <th scope="col">Category</th>
+                <th scope="col">Type</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{product.productNo}}</td>
+                <td><a style="text-decoration: none;" href="{% url 'details' productNo=product.productNo %}">{{product.productName}}</a></td>
+                <td>{{product.category}}</td>
+                <td>{{product.types}}</td>
+                <td>{{product.brand}}</td>
+                <td>{{product.rating}}</td>
+                <td>{{product.price}}</td>
+            </tr>
+            {% endfor %}
+        </tbody> -->
+    </table>
+</div>
+
+
+
+
+<div class="block">
+
+</div>
+
+{% block footer %}
+{% endblock %}
+<style>
+  .wow{
+    padding-left: 20px;
+    padding-top: 50px;
+    background-color: #fff;
+  }
+    .footer_black {
+        height:60px;
+
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        line-height: 60px;
+        font-size: 13px;
+        color: #fff;
+        background-color: #444;
+        font-weight: 200;
+    }
+
+    .good{
+        line-height: 60px;
+
+    }
+
+    .footer_black p {
+        margin: 0;
+        width: 100%;
+    }
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 10px;
+  grid-column-gap: 30px;
+}
+
+.image-box {
+  position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 180px;
+    overflow: hidden;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+.text {
+   display: flex;
+   flex-direction: column;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    height: 50px;
+    display: flex;
+
+    color: #6f6f6f;;
+}
+
+.text p {
+    display: block;
+    margin: 0;
+    color: #6f6f6f;;
+    font-size: 13px;
+
+    text-decoration: none;
+  }
+
+.text h7 {
+  display: block;
+}
+.image-box:hover img {
+  transform: scale(1.1);
+}
+
+.image-box:hover h3 {
+  opacity: 1;
+}
+
+.pagination {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.step-links {
+  display: inline-block;
+  float: none;
+}
+
+.step-links a {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.step-links a:hover {
+  background-color: #fff;
+  color: #444;
+  text-decoration: none;
+}
+
+.current-page {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+}
+</style>

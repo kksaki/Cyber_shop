@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+User List
+{% endblock %}
+
+{% block page_content %}
+<div class="chartrap">
+    <div class="container text-center">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div><a class="button1" href="{% url 'management' %}"><span class="button_a">data Contrast</span></a></div>
+                <div><a class="button1" href="{% url 'list' %}"><span class="button_a">All Product</span></a></div>
+                <div><a class="button1" href="{% url 'user_list' %}"><span class="button_a">User list</span></a></div>
+                <div><a class="button1" href="{% url 'all_order_list' %}"><span class="button_a">Order list</span></a></div>
+            </div>
+
+            <div class="col-sm-9">
+                <h2 class="title">
+                    User_list
+                </h2>
+
+                <div class="table_c1">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">User ID</th>
+                                <th scope="col">User Name</th>
+                                <th scope="col">Joined Date</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for user in users %}
+                            <tr>
+                                <td><a href="{% url 'customer_detail' username=user.username %}">{{user.id}}</a></td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.date_joined}}</td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .chartrap{
+        width: 990px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        margin-bottom:60px;
+        padding:50px;
+
+    }
+    .col-sm-9{
+        border:1px solid #06283D;
+        border-radius: 10px;
+        padding:20px;
+    }
+
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        margin-bottom:55px;
+    }
+
+    .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 10px;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.button_a {
+  height:40px;
+  width:150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #47B5FF;
+  color: #ffffff;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.button_a:hover {
+  background-color: #fff;
+  color: #47B5FF;
+  border-color: #47B5FF;
+}
+.table_c1{
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+    text-align: center;
+}
+</style>
+{% endblock %}

@@ -82,6 +82,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'bigcart.context_processors.cart',
+                'bigcart.context_processors.search_form',
             ],
         },
     },

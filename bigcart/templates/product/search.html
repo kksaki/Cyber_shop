@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Search
+{% endblock %}
+
+{% block page_content %}
+<script>
+    function setSortBy(s) {
+        document.getElementById('id_sort_by').value = s;
+    }
+</script>
+
+
+<div class="logy row">
+    <div class="col-sm-3">
+        <!-- <h2 class="title">Search Products by Condition</h2> -->
+        <div class="my-div">
+        {% csrf_token %}
+        <form action="{% url 'search' %}" method="get" id="search"  class="my-form">
+            {% csrf_token %}
+            <input type="hidden" name="page" value="{{ products.number }}">
+            {% csrf_token %}
+            <div class="table">{{ form2 }}</div>
+            <input type="submit" class="submmit" value="Search">
+            <div class="table1" style="margin-top: 50px;">{{ form2.get_rating_sort_button }}
+                {{ form2.get_price_sort_button }}</div>
+        </form>
+        </div>
+    </div>
+    <div class="col-sm-9" >
+    {% if products %}
+    {% include 'product/search_table.html' with rows=products cnt=cnt %}
+    {% else %}
+        <p style="text-align: center; color:#ff4747; font-weight: 600; margin-top: 30px;"><i class="bi bi-exclamation-circle"></i> No products found. Start Search or Search again!</p>
+    {% endif %}
+    </div>
+</div>
+
+<!-- <div class="block">
+
+</div> -->
+<!-- <div class="footer_black">
+    <p class="good" > © Bigbasket 2023 All Rights Reserved
+    </pclas>
+</div> -->
+<style>
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        padding-bottom: 15px;
+    }
+
+    .logy{
+        height: 460px;
+        width: 990px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 50px;
+
+        font-size: 17px;
+
+        margin-bottom: 0px;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+
+        }
+
+    .my-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        background-color: #DFF6FF;
+        padding: 30px;
+        border-radius:10px;
+        }
+
+    .myform{
+        width: 150px;
+    }
+
+
+    .submmit{
+        border:1px solid #47B5FF;
+        width:150px;
+        background-color: #47B5FF;
+        border-radius: 0px;
+        height: 45px;
+        color:#ffffff;
+        margin-top:15px;
+        margin-bottom: 0px;
+        font-size: 18px;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+    }
+
+    .my-form .table input[type="button"] {
+        border:1px solid #e0e1e2;
+        width:80px;
+        background-color: #06283D;
+        border-radius: 0px;
+        height: 30px;
+        color:#ffffff;
+        font-size: 12px;
+        margin-top: 10px;
+
+    }
+    .my-form .table1 lable{
+        font-size: 10px;
+
+
+    }
+    input:not(:focus)::placeholder {
+        color: #999;
+        font-style: italic;
+    }
+
+
+        .footer_black {
+        height:60px;
+
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        line-height: 60px;
+        font-size: 13px;
+        color: #fff;
+        background-color: #444;
+        font-weight: 200;
+        position:absolute;
+    }
+
+    .good{
+        line-height: 60px;
+
+    }
+
+    .footer_black p {
+        margin: 0;
+        width: 100%;
+    }
+</style>
+{% block footer %}
+{% endblock %}
+{% endblock %}

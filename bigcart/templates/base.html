@@ -98,14 +98,22 @@
                             <input type="text" id="id_query" placeholder="search" class="form-control mr-sm-2">
 
                     </form> -->
+                    {% block search_form %}
                     <form action="{% url 'search' %}" method="get" id="search"  class="my-form">
                         {% csrf_token %}
                         <input type="hidden" name="page" value="{{ products.number }}">
                         {% csrf_token %}
-                        <div class="table">{{ form.productName }}</div>
-                        <input type="submit" class="submmit" value="Search">
+                        <div class="table">{{ form2.productName }}
+                            <button class="btn my-2 my-sm-0" type="submitt" style="background:none; color:#06283D;right: 0; top: 0; position:absolute;" ><i class="bi bi-search-heart"></i></button>
+                        </div>
                     </form>
+                    {% endblock %}
                 </div>
+
+                <!-- <div class="form-group" style="position:relative">
+                    <input type="text" name="query" id="id_query" placeholder="search" class="form-control mr-sm-2">
+                    <button class="btn my-2 my-sm-0" type="submit" style="background:none; color:#06283D;right: 0; top: 0; position:absolute;" ><i class="bi bi-search-heart"></i></button>
+                </div> -->
 
                     <div class="me-auto p-2"><a href="{% url 'search' %}">| <i class="bi bi-stars"></i>All Product</a></div>
                     <div class="me-auto p-2"><a href="{% url 'management' %}">| <i class="bi bi-stars"></i>Management</a></div>
@@ -131,7 +139,6 @@
 
 
     </div>
-
 
 
 
@@ -169,6 +176,41 @@
         margin: 0;
         width: 100%;
         }
+
+        .my-form .table input[type="button"] {
+        border:1px solid #e0e1e2;
+        width:80px;
+        background-color: #06283D;
+        border-radius: 0px;
+        height: 30px;
+        color:#ffffff;
+        font-size: 12px;
+        margin-top: 10px;
+        }
+
+        .my-form .table1 lable{
+        font-size: 10px;
+        }
+
+        input:not(:focus)::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .submmitt{
+        border:1px solid #47B5FF;
+        width:890px;
+        background-color: #47B5FF;
+        border-radius: 0px;
+        height: 45px;
+        color:#ffffff;
+        margin-top:15px;
+        margin-bottom: 0px;
+        font-size: 18px;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+    }
+
     </style>
     {% endblock %}
 </body>

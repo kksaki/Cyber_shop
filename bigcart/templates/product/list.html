@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Product List
+{% endblock %}
+
+{% block page_content %}
+
+
+<style>
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:70px;
+    }
+
+    .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 35px;
+  text-decoration: none;
+  font-weight: 300;
+  font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+}
+
+.button_a {
+  height:40px;
+  width:250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #47B5FF;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.button_a:hover {
+  background-color: #47B5FF;
+  color: #fff;
+}
+</style>
+
+{% include 'product/product_table.html' with rows=products cnt=cnt %}
+{% endblock %}

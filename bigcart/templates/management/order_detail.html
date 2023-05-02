@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Comparison
+{% endblock %}
+
+{% block page_content %}
+<div class="chartrap">
+    <div class="container text-center">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div><a class="button1" href="{% url 'management' %}"><span class="button_a">data Contrast</span></a></div>
+                <div><a class="button1" href="{% url 'list' %}"><span class="button_a">All Product</span></a></div>
+                <div><a class="button1" href="{% url 'user_list' %}"><span class="button_a">User list</span></a></div>
+                <div><a class="button1" href="{% url 'all_order_list' %}"><span class="button_a">Order list</span></a></div>
+            </div>
+
+            <div class="col-sm-9">
+                <h2 class="title">
+                   Detail of Order No.{{ order.id }}
+                </h2>
+
+                <div class="logy">
+                    <ul class="list-group list-group-flush" style="margin-bottom: 50px;">
+                        <li class="list-group-item">Order ID : {{ order.id }}</li>
+                        <li class="list-group-item">User ID : {{ order.customer_id}}</li>
+                        <li class="list-group-item">User Email : {{ order.email }}</li>
+                        <li class="list-group-item">Address : {{ order.address }}</li>
+                        <li class="list-group-item">Payment Status : {{ order.paid }}</li>
+                        <li class="list-group-item">Created Date : {{ order.created_date }}</li>
+                        <li class="list-group-item">                        <p><b>The order includes these items:</b></p>
+                            {% for order_item in order_items %}
+
+                            <p><b>Item: {{ order_item.product_id }}
+                                Quantity: {{ order_item.quantity}}</b>
+
+                            </p>
+                            {% endfor %}</li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .chartrap{
+        width: 990px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        margin-bottom:60px;
+        padding:50px;
+
+    }
+    .col-sm-9{
+        border:1px solid #06283D;
+        border-radius: 10px;
+        padding:20px;
+    }
+
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        margin-bottom:55px;
+    }
+
+    .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 10px;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.button_a {
+  height:40px;
+  width:150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #47B5FF;
+  color: #ffffff;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.button_a:hover {
+  background-color: #fff;
+  color: #47B5FF;
+  border-color: #47B5FF;
+}
+.table_c1{
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
+
+.p {
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
+
+.logy{
+
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding:10px;
+        font-size: 15px;
+        background-color: #fff;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        }
+</style>
+{% endblock %}

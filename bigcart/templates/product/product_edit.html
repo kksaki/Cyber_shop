@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping Edit
+{% endblock %}
+
+{% block page_content %}
+
+<div class="logy">
+    <h2 class="title">Edit Product {{ product.productNo }}</h2>
+    <div class="my-div">
+        <form method="POST" class="my-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="table">{{ form }}</div>
+
+                <input type="submit" class="submmit" value="SAVE">
+
+        </form>
+    </div>
+
+</div>
+
+
+<style>
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        padding-bottom: 50px;
+    }
+    .logy{
+        height: 1000px;
+        width: 650px;
+        font-weight: 300;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding:10px;
+        font-size: 18px;
+        background-color: #fff;
+
+
+        }
+    .my-div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+
+
+        }
+
+    .myform{
+        width: 600px;
+    }
+    .submmit{
+        border:1px solid #47B5FF;
+        width:500px;
+        background-color: #47B5FF;
+        border-radius: 0px;
+        height: 45px;
+        color:#ffffff;
+        margin-top:40px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    }
+    .table{
+        color:#47B5FF;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+    }
+
+</style>
+{% endblock %}

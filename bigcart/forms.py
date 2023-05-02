@@ -72,6 +72,10 @@ class ProductForm(forms.ModelForm):
         label="Sub Category",
         widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5'})
     )
+    image = forms.ImageField(
+        label="Image",
+        widget=forms.widgets.FileInput(attrs={'class': 'form-control col-sm-5'})
+    )
 
 class SearchConditionForm(forms.Form):
     """ Form used for search conditions in /search page """
@@ -81,7 +85,7 @@ class SearchConditionForm(forms.Form):
 
     productName = forms.CharField(
         required=False,
-        widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5','placeholder': 'e.g egg, fish'})
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5','placeholder': 'search product e.g egg, fish'})
     )
     category = forms.fields.ChoiceField(
         required=False,

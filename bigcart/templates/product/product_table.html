@@ -1,0 +1,317 @@
+{% load static %}
+
+
+
+
+{% if not request.user.is_superuser %}
+<h2 class="title">You are not authorized to access this page.</h2>
+{% else %}
+
+<div class="chartrap">
+    <div class="container text-center">
+
+        <div class="row">
+            <div class="col-sm-3">
+              <div><a class="button3" href="{% url 'management' %}"><span class="button_c">data Contrast</span></a></div>
+              <div><a class="button3" href="{% url 'list' %}"><span class="button_c">All Product</span></a></div>
+              <div><a class="button3" href="{% url 'user_list' %}"><span class="button_c">User list</span></a></div>
+              <div><a class="button3" href="{% url 'all_order_list' %}"><span class="button_c">Order list</span></a></div>
+            </div>
+
+            <div class="col-sm-9">
+                <div class="chart">
+                  <h2 class="title">
+                    All Product
+                </h2>
+                  <div>
+                    <a class="button1" href="{% url 'product_new' %}">
+                        <div class="button_a">Add New Product</div>
+                    </a>
+                  </div>
+                  <div class="table_c1">
+                    <div style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+                    font-weight: 300;color: #47B5FF;"><i class="bi bi-box2-heart"></i> Total product count: {{cnt}} </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">ProductName</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in page_obj %}
+
+                            <tr>
+                                <td>{{product.productNo}}</td>
+                                <td ><a style="text-decoration: none;" href="{% url 'details' productNo=product.productNo %}"><span class="ppp">{{product.productName}}</span></a></td>
+                                <td>{{product.price}}</td>
+                                <td>
+                                  <a href="{% url 'product_edit' productNo=product.productNo %}" class="button2">
+                                    <span class="button_b">Edit</span>
+                                  </a>
+                                  <a href="{% url 'product_delete' productNo=product.productNo %}" class="button2">
+                                    <span class="button_b">Delete</span>
+                                </a>
+                              </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <div class="pagination" >
+                    <span class="step-links">
+
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; First Page</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">Previouse Page</a>
+                        {% endif %}
+
+                        <span class="current-page">
+                            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                        </span>
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">Next Page</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">Last Page &raquo;</a>
+                        {% endif %}
+
+                    </span>
+                </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+<style>
+    .chartrap{
+        width: 990px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        margin-bottom:60px;
+        padding:50px;
+
+    }
+    .col-sm-9{
+        border:1px solid #06283D;
+        border-radius: 10px;
+    }
+
+    .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        margin-bottom:20px;
+    }
+
+    .footer_black {
+        height:60px;
+
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        line-height: 60px;
+        font-size: 13px;
+        color: #fff;
+        background-color: #444;
+        font-weight: 200;
+    }
+
+    .good{
+        line-height: 60px;
+
+    }
+
+    .footer_black p {
+        margin: 0;
+        width: 100%;
+    }
+
+    .pagination {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.step-links {
+  display: inline-block;
+  float: none;
+}
+
+.step-links a {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.step-links a:hover {
+  background-color: #fff;
+  color: #444;
+  text-decoration: none;
+}
+
+.current-page {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.table_c1{
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
+
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+.image-box {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease-in-out;
+}
+
+.image-box h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.image-box:hover img {
+  transform: scale(1.1);
+}
+
+.image-box:hover h3 {
+  opacity: 1;
+}
+
+.ppp {
+  color:#6f6f6f;
+}
+
+.ppp:hover {
+  background-color: #47B5FF;
+  color: #fff;
+}
+    .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 35px;
+  text-decoration: none;
+  font-weight: 300;
+  font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+}
+
+.button_a {
+  height:40px;
+  width:250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #47B5FF;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.button2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 5px;
+  text-decoration: none;
+  font-weight: 300;
+  font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+}
+
+.button_b {
+  height:20px;
+  width:60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #47B5FF;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.button_a:hover {
+  background-color: #47B5FF;
+  color: #fff;
+}
+
+.button_b:hover {
+  background-color: #47B5FF;
+  color: #fff;
+}
+
+
+.button3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 10px;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.button_c {
+  height:40px;
+  width:150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #47B5FF;
+  color: #ffffff;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.button_c:hover {
+  background-color: #fff;
+  color: #47B5FF;
+  border-color: #47B5FF;
+}
+</style>

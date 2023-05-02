@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Bigbasket Shopping prodcut detail
+{% endblock %}
+
+{% block page_content %}
+
+<h2 class="title">Detail of Product No.{{product.productNo}}</h2>
+
+
+<!-- <div class="button1">
+    <a  class="button1" href="{% url 'product_edit' productNo=product.productNo %}" class="button light">
+        <span class="button_a">Edit this product</span>
+    </a>
+    <span class="button_b">   </span>
+    <a class="button1" href="{% url 'product_delete' productNo=product.productNo %}" class="button light">
+        <span class="button_a">Delete this product</span>
+    </a>
+  </div> -->
+
+
+
+
+
+<div class="wrappy">
+    <div class="lefty">
+        <div >
+            <img src="{{ product.image.url }}"  alt="product" style="max-width: 100%; max-height: 100%;">
+
+        </div>
+        <div class="image-row">
+            <div class="image-col">
+                <img src="{% static 'm2.png' %}" alt="image1">
+            </div>
+            <div class="image-col">
+                <img src="{% static 'm22.png' %}" alt="image2">
+            </div>
+        </div>
+    </div>
+
+    <div class="righty">
+        <div class="one">
+            luxury
+        </div>
+        <div style="font-size: 30px;font-weight: 500; margin-top: 10px;">
+            {{product.productName}}
+        </div>
+        <div style="font-size: 13px;font-weight: 300; margin-top: 0px;">
+            ProductNo : {{product.productNo}}
+        </div>
+        <div class="two">
+            rating : {{product.rating}}
+        </div>
+        <div style="font-size: 50px;font-weight: 700; margin-top: 0px; margin-bottom: 30px;">
+            <i class="bi bi-currency-pound" style="font-weight: bolder;"></i>{{product.price}}
+        </div>
+
+        <form action="{% url 'cart_add' product.productNo%}" method="post">
+            <span style="font-weight:500;">{{ cart_product_form }}</span>
+             {% csrf_token %}
+
+            <div>
+                <input class="formy" type="submit" value="Add to Cart">
+            </div>
+          </form>
+        <div class="kuang">
+            <div><h6>Details:</h6></div>
+            <div>Category : {{product.category.id}}</div>
+            <div>Sub Category : {{product.sub_category}}</div>
+            <div>Brand : {{product.brand.id}}</div>
+            <div>Type : {{product.types.id}}</div>
+            <div>Created Date : {{product.created_date}}</div>
+        </div>
+
+        <div style="font-weight: 300;  margin-top: 30px;">
+            <b>Description:</b>
+            {{product.description}}
+        </div>
+
+
+
+    </div>
+
+    <div style="clear: both;"></div>
+</div>
+
+
+<style>
+    .kuang{
+        min-height: 100px;
+        font-weight: 300;
+        margin-top: 30px;
+        border:1px solid #47B5FF;
+        padding:10px;
+        font-size: 12px;
+        background-color: #fff;
+
+        }
+
+    .formy{
+
+        min-height: 40px;
+        width:438px;
+        background-color: #47B5FF;
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 17px;
+        margin-top: 10px;
+        border:#47B5FF;
+    }
+    .one{
+        display: flex; /* 设置为 flex 布局 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        min-height: 30px;
+        width:60px;
+        background-color: #06283D;
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 8px;
+
+    }
+    .two{
+        display: flex; /* 设置为 flex 布局 */
+        justify-content: center; /* 水平居中 */
+        align-items: center; /* 垂直居中 */
+        min-height: 30px;
+        width:90px;
+        background-color:  #ffffff;
+        color: #06283D;
+        border:1px solid #06283D;
+        font-weight: 500;
+        font-size: 8px;
+        margin-top:30px
+
+    }
+    .lefty{
+        width:50%;
+        float:left;
+        padding-left:0px;
+    }
+
+    .righty{
+        width:50%;
+        float:left;
+        padding-left:55px;
+    }
+        .wrappy{
+        width: 990px;
+        margin: 0 auto;
+
+        margin-bottom:60px;
+
+        opacity: 1;
+        border-radius: 10px;
+        margin-top: 70px;
+
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    }
+
+    .image-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    text-align: center;
+    }
+
+    .image-col {
+        width: 50%;
+        margin: 0 10px;
+
+    }
+
+    .image-col img {
+        max-width: 100%;
+        height: auto;
+    }
+    .image-row .image-col:first-child{
+        margin-left: 0;
+    }
+
+    .image-row :nth-child(2){
+        margin-right: 0;
+    }
+
+
+        .title{
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+    }
+    .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  padding-top: 20px;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+.button_a {
+  height:40px;
+  width:250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  color: #47B5FF;
+  border:1px solid #47B5FF;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.button_b {
+  height:40px;
+  width:50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 1;
+
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.button_a:hover {
+  background-color: #47B5FF;
+  color: #fff;
+}
+</style>
+
+
+
+
+{% endblock %}
