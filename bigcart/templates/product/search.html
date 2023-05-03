@@ -17,16 +17,12 @@ Bigbasket Shopping Search
     <div class="col-sm-3">
         <!-- <h2 class="title">Search Products by Condition</h2> -->
         <div class="my-div">
-        {% csrf_token %}
-        <form action="{% url 'search' %}" method="get" id="search"  class="my-form">
-            {% csrf_token %}
-            <input type="hidden" name="page" value="{{ products.number }}">
-            {% csrf_token %}
-            <div class="table">{{ form2 }}</div>
-            <input type="submit" class="submmit" value="Search">
-            <div class="table1" style="margin-top: 50px;">{{ form2.get_rating_sort_button }}
-                {{ form2.get_price_sort_button }}</div>
-        </form>
+            <form action="{% url 'search' %}" method="get" id="search"  class="my-form" name="search_form">
+                <div class="table">{{ form }}</div>
+                <input type="submit" class="submmit" value="Search">
+                <div class="table1" style="margin-top: 50px;">{{ form.get_rating_sort_button }}
+                    {{ form.get_price_sort_button }}</div>
+            </form>
         </div>
     </div>
     <div class="col-sm-9" >
@@ -143,6 +139,7 @@ Bigbasket Shopping Search
         width: 100%;
     }
 </style>
+
 {% block footer %}
 {% endblock %}
 {% endblock %}

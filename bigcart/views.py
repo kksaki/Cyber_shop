@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Product, OrderItem, Order
 from django.core.paginator import Paginator
-from .forms import ProductForm, SearchConditionForm, SignUpForm, CartAddProductForm, OrderCreateForm
+from .forms import ProductForm, SearchConditionForm, SignUpForm, CartAddProductForm, OrderCreateForm,SearchProduct
 from django.utils import timezone
 from django.db.models import Count, Q
 from django.contrib.auth import login, authenticate, logout
@@ -20,7 +20,7 @@ def is_superuser(user):
     return user.is_superuser
 
 def base(request):
-    form2 = SearchConditionForm()
+    form2 = SearchProduct()
     return render(request, 'base.html',{'form2': form2})
 
 def home(request):
@@ -107,6 +107,7 @@ def chart(request):
 
 
 def search(request):
+    form2 = SearchProduct()
     products = Product.objects.all()
     productName = ''
     category = ''
@@ -115,7 +116,9 @@ def search(request):
     sort_by = "productNo"
     page = ''
 
+
     if request.method == 'GET':  # check if request method is POST
+
         # Get values from POST data
         page = request.GET.get('page', 1)
         if "productName" in request.GET:
@@ -130,7 +133,8 @@ def search(request):
             sort_by = request.GET["sort_by"]
 
         # Initialise form values
-        form2 = SearchConditionForm(initial={
+
+        form = SearchConditionForm(initial={
             'productName': productName,
             'category': category,
             'type': d_type,
@@ -157,13 +161,14 @@ def search(request):
             products = Product.objects.all().filter(*where).order_by(sort_by)
 
     else:  # if request method is not GET, show all products
-        form2 = SearchConditionForm()
+        form = SearchConditionForm()
+        products = Product.objects.all().order_by(sort_by)
 
-    paginator = Paginator(products, 40)  # Show 20 products per page
+    paginator = Paginator(products, 20)  # Show 20 products per page
     page_number = request.GET.get('page',1)
     products = paginator.get_page(page_number)
 
-    return render(request, 'product/search.html', {'products': products, 'cnt': len(products), 'form2': form2})
+    return render(request, 'product/search.html', {'products': products, 'cnt': len(products), 'form2': form2,'form': form})
 
 
 

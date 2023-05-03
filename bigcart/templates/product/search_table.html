@@ -1,61 +1,71 @@
+<div>
+
+</div>
+
 <div class="wow">
-  <div class="pagination">
-    <span class="step-links">
-  {% if products.has_previous %}
-    <form id="form-page-1" action="" method="get" style="display: inline;">
-      {% csrf_token %}
-      <input type="hidden" name="page" value="1">
-      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
-      <input type="hidden" name="category" value="{{ form2.category.value }}">
-      <input type="hidden" name="type" value="{{ form2.type.value }}">
-      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
-      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
-      <a href="#" onclick="document.getElementById('form-page-1').submit(); return false;">&laquo; first</a>
-    </form>
-    <form id="form-page-prev" action="" method="get" style="display: inline;">
-      {% csrf_token %}
-      <input type="hidden" name="page" value="{{ products.previous_page_number }}">
-      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
-      <input type="hidden" name="category" value="{{ form2.category.value }}">
-      <input type="hidden" name="type" value="{{ form2.type.value }}">
-      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
-      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
-      <a href="#" onclick="document.getElementById('form-page-prev').submit(); return false;">previous</a>
-    </form>
-  {% endif %}
+  <div class="row">
+    <div class="col-6 col-md-4" style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif; font-weight: 300;color: #47B5FF; font-size: 13px;"><i class="bi bi-box2-heart"></i> Product Count: {{ products.paginator.count }}</div>
+
+    <div class="col-md-8 pagination">
+      <span class="step-links">
+    {% if products.has_previous %}
+      <form id="form-page-1" action="" method="get" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="page" value="1">
+        <input type="hidden" name="productName" value="{{ form.productName.value }}">
+        <input type="hidden" name="category" value="{{ form.category.value }}">
+        <input type="hidden" name="type" value="{{ form.type.value }}">
+        <input type="hidden" name="brand" value="{{ form.brand.value }}">
+        <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+        <a href="#" onclick="document.getElementById('form-page-1').submit(); return false;">&laquo; first</a>
+      </form>
+      <form id="form-page-prev" action="" method="get" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="page" value="{{ products.previous_page_number }}">
+        <input type="hidden" name="productName" value="{{ form.productName.value }}">
+        <input type="hidden" name="category" value="{{ form.category.value }}">
+        <input type="hidden" name="type" value="{{ form.type.value }}">
+        <input type="hidden" name="brand" value="{{ form.brand.value }}">
+        <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+        <a href="#" onclick="document.getElementById('form-page-prev').submit(); return false;">previous</a>
+      </form>
+    {% endif %}
 
 
-  <span class="current-page">
-    Page {{ products.number }} of {{ products.paginator.num_pages }}.
-  </span>
+    <span class="current-page">
+      Page {{ products.number }} of {{ products.paginator.num_pages }}.
+    </span>
 
-  {% if products.has_next %}
-    <form id="form-page-next" action="" method="get" style="display: inline;">
-      {% csrf_token %}
-      <input type="hidden" name="page" value="{{ products.next_page_number }}">
-      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
-      <input type="hidden" name="category" value="{{ form2.category.value }}">
-      <input type="hidden" name="type" value="{{ form2.type.value }}">
-      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
-      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
-      <a href="#" onclick="document.getElementById('form-page-next').submit(); return false;">next</a>
-    </form>
-    <form id="form-page-last" action="" method="get" style="display: inline;">
-      {% csrf_token %}
-      <input type="hidden" name="page" value="{{ products.paginator.num_pages }}">
-      <input type="hidden" name="productName" value="{{ form2.productName.value }}">
-      <input type="hidden" name="category" value="{{ form2.category.value }}">
-      <input type="hidden" name="type" value="{{ form2.type.value }}">
-      <input type="hidden" name="brand" value="{{ form2.brand.value }}">
-      <input type="hidden" name="sort_by" value="{{ form2.sort_by.value }}">
-      <a href="#" onclick="document.getElementById('form-page-last').submit(); return false;">last &raquo;</a>
-    </form>
-  </span>
+    {% if products.has_next %}
+      <form id="form-page-next" action="" method="get" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="page" value="{{ products.next_page_number }}">
+        <input type="hidden" name="productName" value="{{ form.productName.value }}">
+        <input type="hidden" name="category" value="{{ form.category.value }}">
+        <input type="hidden" name="type" value="{{ form.type.value }}">
+        <input type="hidden" name="brand" value="{{ form.brand.value }}">
+        <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+        <a href="#" onclick="document.getElementById('form-page-next').submit(); return false;">next</a>
+      </form>
+      <form id="form-page-last" action="" method="get" style="display: inline;">
+        {% csrf_token %}
+        <input type="hidden" name="page" value="{{ products.paginator.num_pages }}">
+        <input type="hidden" name="productName" value="{{ form.productName.value }}">
+        <input type="hidden" name="category" value="{{ form.category.value }}">
+        <input type="hidden" name="type" value="{{ form.type.value }}">
+        <input type="hidden" name="brand" value="{{ form.brand.value }}">
+        <input type="hidden" name="sort_by" value="{{ form.sort_by.value }}">
+        <a href="#" onclick="document.getElementById('form-page-last').submit(); return false;">last &raquo;</a>
+      </form>
+      {% endif %}
+    </span>
+
+    </div>
+
+
   </div>
-  {% endif %}
 
-    <div style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
-    font-weight: 300;color: #47B5FF;"><i class="bi bi-box2-heart"></i> Product Count: {{ products.paginator.count }}</div>
+
     <table>
         <div class="image-grid">
             {% for product in products %}
@@ -67,6 +77,8 @@
                 <h7>£{{ product.price }}</h7>
                 <a href="{% url 'details' productNo=product.productNo %}" style="text-decoration: none;">
                 <p>{{ product.productName }}</p></a>
+                <p>{{ product.rating }}</p></a>
+                <p>{{ product.price }}</p></a>
 
               </div>
 
@@ -194,35 +206,43 @@
 }
 
 .pagination {
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 30px;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .step-links {
-  display: inline-block;
+  padding: 0px;
   float: none;
 }
 
 .step-links a {
   display: inline-block;
   margin-right: 10px;
-  padding: 5px 10px;
-  background-color: #444;
-  color: #fff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+
+  background-color: #ffffff;
+  color: #47B5FF;
   border-radius: 5px;
+  border-color: #47B5FF;
 }
 
 .step-links a:hover {
-  background-color: #fff;
-  color: #444;
+  background-color: #47B5FF;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .current-page {
   display: inline-block;
-  padding: 5px 10px;
-  background-color: #444;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  background-color: #47B5FF;
   color: #fff;
   border-radius: 5px;
 }

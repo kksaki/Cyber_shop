@@ -85,7 +85,7 @@ class SearchConditionForm(forms.Form):
 
     productName = forms.CharField(
         required=False,
-        widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5','placeholder': 'search product e.g egg, fish'})
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5','placeholder': 'e.g egg, fish'})
     )
     category = forms.fields.ChoiceField(
         required=False,
@@ -122,6 +122,33 @@ class SearchConditionForm(forms.Form):
     Sort_By_Price1 = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'type': 'button', 'value': 'Ascend↑', 'onclick': "setSortBy('price'); document.getElementById('search').submit();"}))
 
     Sort_By_Price2 = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'type': 'button', 'value': 'Descend↓', 'onclick': "setSortBy('-price'); document.getElementById('search').submit();"}))
+
+class SearchProduct(forms.Form):
+    """ Form used for search conditions in /search page """
+    categories = Category.objects.all()
+    types = Type.objects.all()
+    brands = Brand.objects.all()
+
+    productName = forms.CharField(
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5','placeholder': 'e.g egg, fish'})
+    )
+    category = forms.fields.ChoiceField(
+        required=False,
+        choices=[('', 'All')] + [(item.id, item.id) for item in categories],
+        widget=forms.widgets.Select(attrs={'class': 'form-control col-sm-5'})
+    )
+    type = forms.fields.ChoiceField(
+        required=False,
+        choices=[('', 'All')] + [(item.id, item.id) for item in types],
+        widget=forms.widgets.Select(attrs={'class': 'form-control col-sm-5'})
+    )
+    brand = forms.fields.ChoiceField(
+        required=False,
+        choices=[('', 'All')] + [(item.id, item.id) for item in brands],
+        widget=forms.widgets.Select(attrs={'class': 'form-control form-inline'})
+    )
+
 
 
 class SignUpForm(UserCreationForm):
