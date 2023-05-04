@@ -225,7 +225,7 @@ def customer_detail(request, username):
 def user_detail(request, username):
     form2 = SearchConditionForm()
     user = get_object_or_404(User, username=username)
-    return render(request, 'management/customer_detail.html', {'user' : user,'form2':form2})
+    return render(request, 'management/user_detail.html', {'user' : user,'form2':form2})
 
 
 @require_POST

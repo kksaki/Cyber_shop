@@ -12,7 +12,7 @@ User List
         <div class="row">
             <div class="col-sm-3">
                 <div><a class="button1" href="{% url 'management' %}"><span class="button_a">data Contrast</span></a></div>
-                <div><a class="button1" href="{% url 'list' %}"><span class="button_a">All Product</span></a></div>
+                <div><a class="button1" href="{% url 'list' %}"><span class="button_a">Manage products</span></a></div>
                 <div><a class="button1" href="{% url 'user_list' %}"><span class="button_a">User list</span></a></div>
                 <div><a class="button1" href="{% url 'all_order_list' %}"><span class="button_a">Order list</span></a></div>
             </div>
@@ -36,7 +36,7 @@ User List
 
                             {% for user in users %}
                             <tr>
-                                <td><a href="{% url 'customer_detail' username=user.username %}">{{user.id}}</a></td>
+                                <td><a href="{% url 'user_detail' username=user.username %}">{{user.id}}</a></td>
                                 <td>{{user.username}}</td>
                                 <td>{{user.date_joined}}</td>
                             </tr>
@@ -88,7 +88,7 @@ User List
 
 .button_a {
   height:40px;
-  width:150px;
+  width:170px;
   display: flex;
   justify-content: center;
   align-items: center;

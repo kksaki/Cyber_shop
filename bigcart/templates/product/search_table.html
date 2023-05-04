@@ -1,7 +1,7 @@
 <div>
 
 </div>
-
+{% load static %}
 <div class="wow">
   <div class="row">
     <div class="col-6 col-md-4" style="font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif; font-weight: 300;color: #47B5FF; font-size: 13px;"><i class="bi bi-box2-heart"></i> Product Count: {{ products.paginator.count }}</div>
@@ -61,8 +61,6 @@
     </span>
 
     </div>
-
-
   </div>
 
 
@@ -70,18 +68,35 @@
         <div class="image-grid">
             {% for product in products %}
               <div class="image-box">
-                <img src="{{ product.image.url }}" alt="{{ product.productName }}">
+                <!-- {% if product.image %}
+                  <img src="{{ product.image.url }}">
 
+                {% else %}
+                  <img src="{% static '11.png' %}">
+                {% endif %} -->
+
+                <img src="{{ product.image.url }}" alt="There are no pictures for this product">
+                <div class="text">
+
+                  <h7><b>£{{ product.price }}</b></h7>
+                  <a href="{% url 'details' productNo=product.productNo %}" style="text-decoration: none;">
+                  <p>
+                    <b class="brand"> &nbsp{{ product.brand }}&nbsp</b>
+
+                    <div class="text" style="font-size: 13px;"><b>{{ product.productName }}</b></div>
+                    <div>
+                      <p class="text3">
+                        {{ product.types.id }} | {{ product.category }}
+                      </p>
+                    </div>
+                  </p>
+                  </a>
+                  <p class="text2">
+                    <b>rating : {{ product.rating }}</b>
+                  </p>
+
+                </div>
               </div>
-              <div class="text">
-                <h7>£{{ product.price }}</h7>
-                <a href="{% url 'details' productNo=product.productNo %}" style="text-decoration: none;">
-                <p>{{ product.productName }}</p></a>
-                <p>{{ product.rating }}</p></a>
-                <p>{{ product.price }}</p></a>
-
-              </div>
-
             {% endfor %}
           </div>
         <!-- <thead>
@@ -151,8 +166,8 @@
 
 .image-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-row-gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-row-gap: 50px;
   grid-column-gap: 30px;
 }
 
@@ -160,8 +175,8 @@
   position: relative;
     display: flex;
     flex-direction: column;
-    height: 180px;
-    overflow: hidden;
+    height: 350px;
+
 }
 
 .image-box img {
@@ -169,33 +184,47 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.2s ease-in-out;
+  overflow: hidden;
 }
 
-.text {
-   display: flex;
-   flex-direction: column;
 
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 0;
-    height: 50px;
-    display: flex;
 
-    color: #6f6f6f;;
+.image-box .text .text2{
+  height: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4px;
 }
 
+.image-box  .text3{
+  font-size: 9px;
+  color:#858585;
+  padding:0px;
+
+
+
+
+}
 .text p {
     display: block;
     margin: 0;
-    color: #6f6f6f;;
+    color: #06283D;
     font-size: 13px;
-
+    white-space: normal;
+    word-wrap: break-word;
     text-decoration: none;
   }
 
 .text h7 {
   display: block;
+}
+.brand {
+  background-color: #DFF6FF;
+  color: #000000;
+  font-weight: 250;
 }
 .image-box:hover img {
   transform: scale(1.1);

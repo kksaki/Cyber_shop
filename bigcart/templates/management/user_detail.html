@@ -12,18 +12,16 @@ Comparison
         <div class="row">
             <div class="col-sm-3">
                 <div><a class="button1" href="{% url 'management' %}"><span class="button_a">data Contrast</span></a></div>
-                <div><a class="button1" href="{% url 'list' %}"><span class="button_a">All Product</span></a></div>
+                <div><a class="button1" href="{% url 'list' %}"><span class="button_a">Manage products</span></a></div>
                 <div><a class="button1" href="{% url 'user_list' %}"><span class="button_a">User list</span></a></div>
                 <div><a class="button1" href="{% url 'all_order_list' %}"><span class="button_a">Order list</span></a></div>
             </div>
 
             <div class="col-sm-9">
                 <h2 class="title">
-                    Category Contrast
+                    User Information
                 </h2>
                 <div class="logy">
-
-                    <h1 class="title">User Information</h1>
                     <ul class="list-group list-group-flush" style="margin-bottom: 50px;">
                         <li class="list-group-item">User Name : {{user.username}}</li>
                         <li class="list-group-item">First Name : {{user.first_name}}</li>
@@ -53,7 +51,13 @@ Comparison
     .col-sm-9{
         border:1px solid #06283D;
         border-radius: 10px;
-        padding:20px;
+        padding:20px 70px;
+
+        text-align: left;
+        font-size: 12px;
+        font-weight: 300;
+        background-color: #fff;
+        font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
     }
 
     .title{
@@ -76,7 +80,7 @@ Comparison
 
 .button_a {
   height:40px;
-  width:150px;
+  width:170px;
   display: flex;
   justify-content: center;
   align-items: center;
