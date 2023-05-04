@@ -18,28 +18,19 @@ Bigbasket Shopping Checkout
               <td colspan="4"></td>
               <td>${{ cart.get_total_price|floatformat:"2" }}</td>
             </tr>
-            <tr>
-              <td>
-                "{{ cart.coupon.code }}" coupon
-                ({{ cart.coupon.discount }}% off)
-              </td>
-              <td colspan="4"></td>
-              <td>
-                - ${{ cart.get_discount|floatformat:"2" }}
-              </td>
-            </tr>
+
           {% endif %}
 
           <ul>
             {% for item in cart %}
               <li>
-                {{ item.quantity }}x {{ item.product.name }}
+                {{ item.quantity }}x {{ item.product.productName }}
                 <span>${{ item.total_price|floatformat:"2" }}</span>
               </li>
             {% endfor %}
             {% if cart.coupon %}
               <li>
-                "{{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
+                "coupon {{ cart.coupon.code }}" ({{ cart.coupon.discount }}% off)
                 <span>- ${{ cart.get_discount|floatformat:"2" }}</span>
               </li>
             {% endif %}
