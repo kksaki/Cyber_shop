@@ -1,4 +1,3 @@
-
 from behave import fixture, use_fixture
 import os, urllib
 import django

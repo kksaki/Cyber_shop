@@ -12,7 +12,6 @@ Comparison
     You are not authorized to access this page.
 </h2>
 <h2 class="title2">
-
     Please log in as a super user.
 </h2>
 <h2 class="title3">
@@ -23,28 +22,27 @@ Comparison
 
 </div>
 <style>
-        .title1{
+    .title1 {
         text-align: center;
         font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
         font-weight: 300;
         margin-top:200px;
 
     }
-    .title2{
+
+    .title2 {
         text-align: center;
         font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
         font-weight: 300;
-
-
     }
 
-    .title3{
+    .title3 {
         text-align: center;
         font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
         font-weight: 300;
-
         margin-bottom:55px;
     }
+
     .block{
         margin-bottom: 100px;
     }
@@ -53,7 +51,6 @@ Comparison
 
 <div class="chartrap">
     <div class="container text-center">
-
         <div class="row">
             <div class="col-sm-3">
                 <div><a class="button1" href="{% url 'management' %}"><span class="button_a">data Contrast</span></a></div>
@@ -122,16 +119,13 @@ Comparison
                                 }
 
                         }
-
                         const category = new Chart(
                             document.getElementById('category').getContext('2d'),
                             config
                         );
-
                     </script>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -140,22 +134,23 @@ Comparison
     .chart {
         padding:10px;
     }
-    .chartrap{
+
+    .chartrap {
         width: 990px;
         margin: 0 auto;
         background-color: #ffffff;
         margin-bottom:60px;
         padding:50px;
-
     }
-    .col-sm-9{
+
+    .col-sm-9 {
         border:1px solid #06283D;
         border-radius: 10px;
         padding-left:20px;
         padding-right:20px;
     }
 
-    .title{
+    .title {
         text-align: center;
         font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
         font-weight: 300;
@@ -164,33 +159,33 @@ Comparison
     }
 
     .button1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50%;
-  padding-top: 10px;
-  text-decoration: none;
-  font-weight: 400;
-}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50%;
+        padding-top: 10px;
+        text-decoration: none;
+        font-weight: 400;
+    }
 
-.button_a {
-  height:40px;
-  width:170px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #47B5FF;
-  color: #ffffff;
-  border:1px solid #47B5FF;
-  border-radius: 5px;
-  padding: 10px 20px;
-  text-decoration: none;
-}
-.button_a:hover {
-  background-color: #fff;
-  color: #47B5FF;
-  border-color: #47B5FF;
-}
+    .button_a {
+        height:40px;
+        width:170px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #47B5FF;
+        color: #ffffff;
+        border:1px solid #47B5FF;
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+    .button_a:hover {
+        background-color: #fff;
+        color: #47B5FF;
+        border-color: #47B5FF;
+        }
 </style>
 {% endif %}
 {% endblock %}

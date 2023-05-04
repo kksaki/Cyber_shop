@@ -66,9 +66,6 @@ def management(request):
     form2 = SearchConditionForm()
     return render(request, 'management/management.html',{'form': form2})
 
-
-
-
 def product_new(request):
     form2 = SearchConditionForm()
     if request.method == "POST":
@@ -241,6 +238,7 @@ def user_detail(request, username):
     return render(request, 'management/user_detail.html', {'user' : user,'form2':form2})
 
 
+
 @require_POST
 def cart_add(request, productNo):
     cart = Cart(request)
@@ -271,7 +269,6 @@ def cart_detail(request):
     coupon_apply_form = CouponApplyForm()
     return render(request, 'order/basket.html', {'cart': cart,
                    'coupon_apply_form': coupon_apply_form,'form2':form2})
-
 
 
 
@@ -310,6 +307,7 @@ def purchase(request):
     else:
         return redirect('login')
 
+
 def order_list(request):
     form2 = SearchConditionForm()
     if request.user.is_authenticated:
@@ -336,6 +334,7 @@ def order_detail(request, id):
         return render(request, 'management/order_detail.html', {'order': order,'order_items':order_items,'form2':form2})
     except Order.DoesNotExist:
         raise Http404("Order does not exist")
+
 
 
 import braintree
@@ -382,6 +381,7 @@ def payment_done(request):
 def payment_canceled(request):
     form2 = SearchConditionForm()
     return render(request, 'payment/canceled.html',{'form2':form2})
+
 
 @require_POST
 def coupon_apply(request):

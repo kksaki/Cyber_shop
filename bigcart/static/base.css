@@ -8,6 +8,7 @@
     padding: 0;
     margin: 0;
 }
+
 /* the first black one */
 .nav_container1{
     width: 100%;
@@ -16,7 +17,6 @@
     background-color: #06283D;
     font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
 }
-
 
 /* make the length 990 */
 .header{
@@ -35,6 +35,7 @@
     position: relative;
     padding: 0;
 }
+
 .logo1 {
     width: 500px;
     float: left;
@@ -71,14 +72,13 @@
     transform: scale(0.5);
 }
 
-
 a:hover {
     color: #47B5FF;
   }
+
 .right {
     font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
 }
-
 
 /* the second  search grey section */
 .nav_container2{
@@ -95,13 +95,6 @@ a:hover {
 
 }
 
-
-
-
-
-
-
-
 a:hover {
     color: #47B5FF;
     }
@@ -109,21 +102,22 @@ a:hover {
 aa:hover {
     color:#fff;
 }
+
 /* three picture row */
 #carousel{
     position: relative;
-    margin: auto; /* 居中 */
-    width: 990px; /* 设置宽度 */
-    position: relative; /* 相对定位 */
-    overflow: hidden; /* 超出隐藏 */
+    margin: auto;
+    width: 990px;
+    position: relative;
+    overflow: hidden;
     height: 500px;
 }
 #carousel img{
-    width: 990px; /* 设定大小 按比例缩放 */
+    width: 990px;
 }
 #carousel > ul {
-    display: flex; /* 图片处理为一行 */
-    position: absolute; /* 设置绝对定位，实现相对于#carousel的绝对定位 */
+    display: flex;
+    position: absolute;
     list-style: none;
     list-style-type:none;
     padding: 0;
@@ -138,7 +132,7 @@ aa:hover {
 }
 
 #carousel > ul{
-    animation: switch 10s ease 1s infinite alternate; /* 设定动画播放 */
+    animation: switch 10s ease 1s infinite alternate;
     list-style: none;
     list-style-type:none;
     padding: 0;
@@ -146,13 +140,11 @@ aa:hover {
 }
 
 #carousel > ul:hover{
-     animation-play-state: paused; /* 暂停动画 */
+     animation-play-state: paused;
      list-style-type:none;
 }
 
-
-
-@keyframes switch{ /* 制定动画规则 */
+@keyframes switch{
     0%,13%{
         left: 0;
     }
@@ -174,7 +166,7 @@ aa:hover {
     height:43px;
     width: 250px;
     background-color: #06283D;
-    padding: 15px 10px; /* 添加内边距以增大按钮的大小 */
+    padding: 15px 10px;
     border: none;
     border-radius: 5px;
     font-size: 20px;
@@ -215,7 +207,7 @@ aa:hover {
     font-weight: 200;
 }
 
-.good{
+.good {
     line-height: 60px;
 
 }

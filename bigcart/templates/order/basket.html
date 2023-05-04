@@ -8,10 +8,8 @@ Bigbasket Shopping Bakset
 {% block page_content %}
 
 <h2 class="title">Your Cart</h2>
-
 <div class="table_c1" ">
   <table>
-
     <thead>
       <tr>
         <th>Product</th>
@@ -58,9 +56,8 @@ Bigbasket Shopping Bakset
         </tr>
         <tr>
           <td>
-            <b style="color:#ffaf03">            "{{ cart.coupon.code }}" coupon
+            <b style="color:#ffaf03"> "{{ cart.coupon.code }}" coupon
               ({{ cart.coupon.discount }}% off)</b>
-
           </td>
           <td colspan="6"></td>
 
@@ -109,19 +106,21 @@ Bigbasket Shopping Bakset
 {% block footer %}
 {% endblock %}
 <style>
-  .title{
-        text-align: center;
-        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
-        font-weight: 300;
-        margin-top:70px;
-    }
-    .block{
-        margin: bottom 80px;
-    }
-
-    .table_c1{
-    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+.title {
+    text-align: center;
+    font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+    font-weight: 300;
+    margin-top:70px;
 }
+
+.block {
+    margin: bottom 80px;
+  }
+
+.table_c1 {
+  font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
+
 .button1 {
   display: flex;
   justify-content: center;
@@ -152,9 +151,7 @@ Bigbasket Shopping Bakset
   display: flex;
   justify-content: center;
   align-items: center;
-
   opacity: 1;
-
   border-radius: 5px;
   padding: 10px 20px;
   text-decoration: none;
@@ -165,21 +162,20 @@ Bigbasket Shopping Bakset
   color: #fff;
 }
 
-  .chartrap{
-        width: 450px;
-        height: 200px;
-        margin: 0 auto;
-        margin-top: 30px;
-        background-color: #47B5FF;
-        color:#fff;
-        margin-bottom:60px;
-        padding:20px;
-        border:5px solid #009dff;
-        border-radius: 10px;
-        text-align: center;
-
-        font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
-    }
+.chartrap {
+    width: 450px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 30px;
+    background-color: #47B5FF;
+    color:#fff;
+    margin-bottom:60px;
+    padding:20px;
+    border:5px solid #009dff;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Lexend', sans-serif,'Hiragino Kaku Gothic Pro', 'Segoe UI', 'Helvetica Neue', HelveticaNeue, YuGothic, 'Yu Gothic Medium', 'Yu Gothic', Verdana, Meiryo, sans-serif;
+}
 </style>
 
 

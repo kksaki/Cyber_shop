@@ -7,10 +7,7 @@ Bigbasket Shopping User
 
 {% block page_content %}
 
-
-
 <div class="logy">
-
     <h1 class="title">User Information</h1>
     <ul class="list-group list-group-flush" style="margin-bottom: 50px;">
         <li class="list-group-item">User Name : {{user.username}}</li>
@@ -19,19 +16,18 @@ Bigbasket Shopping User
         <li class="list-group-item">Email : {{user.email}}</li>
         <li class="list-group-item">Created at : {{user.date_joined}}</li>
         <li class="list-group-item">Management Authority : {{user.is_superuser}}</li>
-
     </ul>
 </div>
 <style>
     .title{
-    text-align: center;
-    font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
-    font-weight: 300;
-    margin-top:30px;
-    margin-bottom: 60px;
-}
+        text-align: center;
+        font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
+        font-weight: 300;
+        margin-top:30px;
+        margin-bottom: 60px;
+    }
 
-.logy{
+    .logy{
         height: 500px;
         width: 650px;
         font-weight: 300;
@@ -41,8 +37,6 @@ Bigbasket Shopping User
         font-size: 12px;
         background-color: #fff;
         font-family: 'Lexend', sans-serif,"Hiragino Kaku Gothic Pro", "Segoe UI", "Helvetica Neue", HelveticaNeue, YuGothic, "Yu Gothic Medium", "Yu Gothic", Verdana, Meiryo, sans-serif;
-        }
+    }
 </style>
-
-
 {% endblock %}

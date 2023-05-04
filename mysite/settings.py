@@ -42,7 +42,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1','shrouded-everglades-97784.herokuapp.c
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -152,11 +151,12 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+
+from braintree import Configuration, Environment
+
 BRAINTREE_MERCHANT_ID = 'bm2nknnx5x8hm5vz'  # Private key'  # Merchant ID
 BRAINTREE_PUBLIC_KEY = '68w6pwr8wvbdypm9'   # Public Key
 BRAINTREE_PRIVATE_KEY = '4a357096f4970c8fa1428587a96872d7'  # Private key
-
-from braintree import Configuration, Environment
 
 Configuration.configure(
     Environment.Sandbox,
@@ -169,9 +169,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 CELERY_ALWAYS_EAGER = True
 
 
+# set image upload
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
-# import dj_database_url
 
 
 BROKER_URL='amqps://fomkhlpf:JhOo7qqwz-zIflyHfPa-PtcdhHBi0GeO@chimpanzee.rmq.cloudamqp.com/fomkhlpf'
@@ -182,4 +182,4 @@ BROKER_URL='amqps://fomkhlpf:JhOo7qqwz-zIflyHfPa-PtcdhHBi0GeO@chimpanzee.rmq.clo
 #     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
 # }
 
-# CSRF_TRUSTED_ORIGINS = ['']
+CSRF_TRUSTED_ORIGINS = ['https://inchpanama-nylonarnold-80.codio-box.uk']

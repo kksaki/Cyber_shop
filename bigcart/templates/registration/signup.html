@@ -7,7 +7,6 @@ Bigbasket Shopping Sign up
 
 {% block page_content %}
 
-
 <div class="logy">
     <h1 class="title">Sign Up</h1>
     <div class="my-div">
@@ -18,12 +17,9 @@ Bigbasket Shopping Sign up
         </div>
         {% endif %}
         {% csrf_token %}
-
             {% for field in form %}
-
                 <div class="tabletip">{{ field.label_tag }}</div>
                 <div class="tableinput">{{ field }}</div>
-
             {% endfor %}
         <div style="margin-bottom: 20px;"></div>
         <div class="alert alert-info" >
