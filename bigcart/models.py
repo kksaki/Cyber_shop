@@ -28,6 +28,12 @@ class Product(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='products/%Y/%m/%d/', blank=True)
 
+    def save(self, *args, **kwargs):
+        try:
+            super().save(*args, **kwargs)
+        except Exception as e:
+            print(f"Error saving product: {e}")
+
 class Category(models.Model):
     id = models.TextField(primary_key=True)
 
@@ -45,6 +51,15 @@ class Type(models.Model):
 
     def __str__(self):
         return self.id
+
+    @classmethod
+    def create_type(cls, type_id):
+        try:
+            type_obj, _ = cls.objects.get_or_create(id=type_id)
+            return type_obj
+        except Exception as e:
+            print(f"Error creating type: {e}")
+            return None
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True,)
@@ -95,7 +110,10 @@ class Order(models.Model):
         return 'Order {}'.format(self.id)
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        try:
+            return sum(item.get_cost() for item in self.items.all())
+        except:
+            return "Unable to calculate total cost"
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order,
@@ -111,7 +129,11 @@ class OrderItem(models.Model):
         return '{}'.format(self.id)
 
     def get_cost(self):
-        return self.price * self.quantity
+        try:
+            cost = self.price * self.quantity
+        except TypeError:
+            cost = 0
+        return cost
 
 class Coupon(models.Model):
     code = models.CharField(max_length=50,
