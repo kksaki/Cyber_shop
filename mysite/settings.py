@@ -174,7 +174,7 @@ MEDIA_URL = 'media/'
 # import dj_database_url
 
 
-BROKER_URL='pyamqp://guest@localhost//'
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 
 
