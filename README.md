@@ -47,6 +47,8 @@ python3 manage.py test
 behave
 ```
 
+## When Updated models
+
 ```commandline
 # create files for migration
 python3 manage.py makemigrations
@@ -54,9 +56,6 @@ python3 manage.py makemigrations
 # execute migration
 python3 manage.py migrate
 
-# Reimporting data
-python3 manage.py parse_csv
-```
 ## For Deployment in Heroku, render
 
 ```commandline
