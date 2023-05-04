@@ -14,6 +14,9 @@ from .models import Coupon
 from .forms import CouponApplyForm
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import Http404
+
 
 # Create your views here.
 def is_superuser(user):
@@ -21,26 +24,42 @@ def is_superuser(user):
 
 def base(request):
     form2 = SearchProduct()
-    return render(request, 'base.html',{'form2': form2})
+    try:
+        # Your code that may raise an exception here
+        return render(request, 'base.html',{'form2': form2})
+    except Exception as e:
+        # Handle the exception here
+        return render(request, 'error.html', {'error_message': str(e)})
 
 def home(request):
     form2 = SearchConditionForm()
-    return render(request, 'home.html',{'form2': form2})
+    try:
+        # Your code that may raise an exception here
+        return render(request, 'home.html',{'form2': form2})
+    except Exception as e:
+        # Handle the exception here
+        return render(request, 'error.html', {'error_message': str(e)})
 
 def product_list(request):
     form2 = SearchConditionForm()
-    product_list = Product.objects.all()
-    product_list = Product.objects.order_by('productNo')
-    paginator = Paginator(product_list, 20) # 每页展示10条数据
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'product/list.html', {'page_obj': page_obj, 'cnt': len(product_list),'form2': form2})
+    try:
+        product_list = Product.objects.all()
+        product_list = Product.objects.order_by('productNo')
+        paginator = Paginator(product_list, 20) # 每页展示10条数据
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'product/list.html', {'page_obj': page_obj, 'cnt': len(product_list),'form2': form2})
+    except ObjectDoesNotExist:
+        return render(request, '404.html')
 
 def details(request, productNo):
-    product = get_object_or_404(Product, productNo=productNo)
     form2 = SearchConditionForm()
     cart_product_form = CartAddProductForm()
-    return render(request, 'product/product_details.html', {'product': product, 'cart_product_form': cart_product_form,'form2': form2})
+    try:
+        product = Product.objects.get(productNo=productNo)
+        return render(request, 'product/product_details.html', {'product': product, 'cart_product_form': cart_product_form,'form2': form2})
+    except ObjectDoesNotExist:
+        return render(request, '404.html')
 
 @user_passes_test(lambda u: u.is_superuser)
 def management(request):
@@ -65,7 +84,10 @@ def product_new(request):
 
 def product_edit(request, productNo):
     form2 = SearchConditionForm()
-    product = get_object_or_404(Product, productNo=productNo)
+    try:
+        product = Product.objects.get(productNo=productNo)
+    except ObjectDoesNotExist:
+        return render(request, 'product/product_not_found.html', {'productNo': productNo})
 
     if request.method == "POST":
         form = ProductForm(request.POST, request.FILES,instance=product)
@@ -79,10 +101,12 @@ def product_edit(request, productNo):
     return render(request, 'product/product_edit.html', {'form': form, 'product': product, 'form2':form2})
 
 
-def product_delete(_request, productNo):
-    form2 = SearchConditionForm()
-    product = get_object_or_404(Product, productNo=productNo)
-    product.delete()
+def product_delete(request, productNo):
+    try:
+        product = Product.objects.get(productNo=productNo)
+        product.delete()
+    except ObjectDoesNotExist:
+        return render(request, 'product/product_not_found.html', {'productNo': productNo})
     return redirect('list')
 
 
@@ -93,17 +117,6 @@ def chart(request):
                   {'form2':form2,'category_rows': {'label': [row["category"] for row in category_rows],
                                  'data': [row["count"] for row in category_rows]},
                    })
-
-# def product_list(request):
-#     product_list = Product.objects.all()
-#     product_list = Product.objects.order_by('productNo')
-#     paginator = Paginator(product_list, 20) # 每页展示10条数据
-#     page_number = request.GET.get('page')
-#     page_obj = paginator.get_page(page_number)
-#     return render(request, 'product/list.html', {'page_obj': page_obj, 'cnt': len(product_list)})
-
-
-
 
 
 def search(request):
@@ -317,9 +330,12 @@ def all_order_list(request):
 
 def order_detail(request, id):
     form2 = SearchConditionForm()
-    order = get_object_or_404(Order, id=id)
-    order_items = OrderItem.objects.filter(order_id=order.id)
-    return render(request, 'management/order_detail.html', {'order': order,'order_items':order_items,'form2':form2})
+    try:
+        order = Order.objects.get(id=id)
+        order_items = OrderItem.objects.filter(order_id=order.id)
+        return render(request, 'management/order_detail.html', {'order': order,'order_items':order_items,'form2':form2})
+    except Order.DoesNotExist:
+        raise Http404("Order does not exist")
 
 
 import braintree
