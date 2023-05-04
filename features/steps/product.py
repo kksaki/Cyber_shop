@@ -1,58 +1,124 @@
-from behave import fixture, use_fixture
-import os, urllib
-import django
-from django.shortcuts import resolve_url
-from django.test import selenium
-from django.test.testcases import TestCase
-from django.test.runner import DiscoverRunner
-from django.test.testcases import LiveServerTestCase
-# from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import urllib
+from urllib.parse import urljoin
+from behave import given, when, then
+from PIL import Image
+import tempfile
+from selenium.webdriver.support.ui import Select
 
-os.environ["DJANGO_SETTINGS_MODULE"] = "mysite.settings"
-django.setup()
 
-current_dir = os.path.dirname(os.path.realpath(__file__))
-CHROME_DRIVER = os.path.join(current_dir, 'driver/chromedriver')
-chrome_options = Options()
-#chrome_options.add_argument("--headless")
-chrome_options.add_argument('--no-proxy-server')
-chrome_options.add_argument("--proxy-server='direct://'")
-chrome_options.add_argument("--proxy-bypass-list=*")
+with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as f:
+    im = Image.new('RGB', (100, 100))
+    im.save(f.name)
 
-def before_all(context):
-    use_fixture(django_test_runner, context)
-    browser = webdriver.Chrome(options=chrome_options, executable_path=CHROME_DRIVER)
-    browser.set_page_load_timeout(time_to_wait=200)
-    context.browser = browser
+@given(u'we want to add a product')
+def user_on_product_newpage(context):
+    base_url = urllib.request.url2pathname(context.test_case.live_server_url)
+    print(base_url)
+    open_url = urljoin(base_url,'/new')
+    context.browser.get(open_url)
 
-def before_scenario(context, scenario):
-    context.test = TestCase()
-    context.test.setUpClass()
-    use_fixture(django_test_case, context)
 
-def after_scenario(context, scenario):
-    context.test.tearDownClass()
-    del context.test
+@when(u'we fill in the form')
+def user_fills_in_the_form(context):
+    # use print(context.browser.page_source) to aid debugging
+    # only prints page source if there is an error in the step
+    print(context.browser.page_source)
 
-def after_all(context):
-    context.browser.quit()
+    productNo_IntegerField = context.browser.find_element('name', 'productNo')
+    productNo_IntegerField.send_keys(7000)
 
-@fixture
-def django_test_runner(context):
-    context.test_runner = DiscoverRunner()
-    context.test_runner.setup_test_environment()
-    context.old_db_config = context.test_runner.setup_databases()
-    yield
-    context.test_runner.teardown_databases(context.old_db_config)
-    context.test_runner.teardown_test_environment()
+    productName_TextField = context.browser.find_element('name','productName')
+    print(productName_TextField)
+    productName_TextField.send_keys('VeryTasty')
 
-@fixture
-def django_test_case(context):
-    context.test_case = LiveServerTestCase
-    context.test_case.setUpClass()
-    yield
-    context.test_case.tearDownClass()
-    del context.test_case
+    category_ChoiceField = Select(context.browser.find_element_by_name('category'))
+    category_ChoiceField.select_by_visible_text('seafood')
+    category_ChoiceField.select_by_value('seafood')
 
+    sub_category_TextField = context.browser.find_element('name', 'sub_category')
+    sub_category_TextField.send_keys('fish')
+
+    brand_ChoiceField = Select(context.browser.find_element_by_name('brand'))
+    brand_ChoiceField.select_by_visible_text('fishman')
+    brand_ChoiceField.select_by_value('fishman')
+
+    price_FloatField = context.browser.find_element('name', 'price')
+    price_FloatField.send_keys(10)
+
+    types_ChoiceField = Select(context.browser.find_element_by_name('types'))
+    types_ChoiceField.elect_by_visible_text('organic')
+    types_ChoiceField.select_by_value('organic')
+
+    rating_FloatField = context.browser.find_element('name', 'rating')
+    rating_FloatField.send_keys(5)
+
+    description_TextField = context.browser.find_element('name', 'description')
+    description_TextField.send_keys('very nice')
+
+    image_ImageField = context.browser.find_element('name', 'image')
+    image_ImageField.send_keys(f.name)
+
+    context.browser.find_element('name','submit').click()
+
+
+@then(u'it succeeds')
+def specific_products(context):
+    assert '7000' in context.browser.page_source
+
+
+@given(u'we have specific product to add')
+def specific_products(context):
+    base_url = urllib.request.url2pathname(context.test_case.live_server_url)
+    open_url = urljoin(base_url,'/new')
+    for row in context.table:
+        context.browser.get(open_url)
+        productNo_IntegerField = context.browser.find_element('name', 'productNo')
+        productNo_IntegerField.send_keys(7000)
+
+        productName_TextField = context.browser.find_element('name','productName')
+        productName_TextField.send_keys('VeryTasty')
+
+        category_ChoiceField = Select(context.browser.find_element_by_name('category'))
+        category_ChoiceField.select_by_visible_text('seafood')
+        category_ChoiceField.select_by_value('seafood')
+
+
+        sub_category_TextField = context.browser.find_element('name', 'sub_category')
+        sub_category_TextField.send_keys('fish')
+
+        brand_ChoiceField = Select(context.browser.find_element_by_name('brand'))
+        brand_ChoiceField.select_by_visible_text('fishman')
+        brand_ChoiceField.select_by_value('fishman')
+
+        price_FloatField = context.browser.find_element('name', 'price')
+        price_FloatField.send_keys(10)
+
+        types_ChoiceField = Select(context.browser.find_element_by_name('types'))
+        types_ChoiceField.elect_by_visible_text('organic')
+        types_ChoiceField.select_by_value('organic')
+
+        rating_FloatField = context.browser.find_element('name', 'rating')
+        rating_FloatField.send_keys(5)
+
+        description_TextField = context.browser.find_element('name', 'description')
+        description_TextField.send_keys('very nice')
+
+        image_ImageField = context.browser.find_element('name', 'image')
+        image_ImageField.send_keys(f.name)
+
+        context.browser.find_element('name','submit').click()
+        assert row['name'] in context.browser.page_source
+
+
+@when(u'we visit the list page')
+def step_impl(context):
+    base_url = urllib.request.url2pathname(context.test_case.live_server_url)
+    open_url = urljoin(base_url,'/details/7000')
+    context.browser.get(open_url)
+    print(context.browser.page_source)
+    assert '7000' in context.browser.page_source
+
+
+@then(u'we will find \'7000\'')
+def step_impl(context):
+    assert '7000' in context.browser.page_source

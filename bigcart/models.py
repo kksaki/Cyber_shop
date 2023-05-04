@@ -17,7 +17,7 @@ class Cart(models.Model):
 # Create your models here.
 class Product(models.Model):
     productNo = models.IntegerField()
-    productName = models.TextField()
+    productName = models.TextField(null=True, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     sub_category = models.TextField(null=True, blank=True)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE)
@@ -125,3 +125,5 @@ class Coupon(models.Model):
 
     def __str__(self):
         return self.code
+
+
