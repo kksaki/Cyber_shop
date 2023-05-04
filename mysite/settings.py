@@ -14,6 +14,8 @@ from pathlib import Path
 # import psycopg2
 # import dj_database_url
 import environ
+
+
 env = environ.Env()
 env.read_env(".env")
 
@@ -170,6 +172,10 @@ CELERY_ALWAYS_EAGER = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 # import dj_database_url
+
+
+
+
 
 
 # DATABASES = {
