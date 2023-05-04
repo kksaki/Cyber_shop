@@ -38,41 +38,50 @@ class ProductForm(forms.ModelForm):
         widget=forms.widgets.NumberInput(attrs={'class': 'form-control col-sm-5'})
     )
     productName = forms.CharField(
+        required=False,
         label="ProductName",
         widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5'})
     )
     category = forms.ModelChoiceField(
+        required=False,
         label="Category",
         queryset=Category.objects.all(),
         widget=forms.widgets.Select(attrs={'class': 'form-control form-inline'})
     )
     brand = forms.ModelChoiceField(
+        required=False,
         label="Brand",
         queryset=Brand.objects.all(),
         widget=forms.widgets.Select(attrs={'class': 'form-control form-inline'})
     )
     price = forms.FloatField(
+        required=False,
         label="Price",
         widget=forms.widgets.NumberInput(attrs={'class': 'form-control col-sm-5'})
     )
     types = forms.ModelChoiceField(
+        required=False,
         label="Type",
         queryset=Type.objects.all(),
         widget=forms.widgets.Select(attrs={'class': 'form-control form-inline'})
     )
     rating = forms.FloatField(
+        required=False,
         label="Rating",
         widget=forms.widgets.NumberInput(attrs={'class': 'form-control col-sm-5'})
     )
     description = forms.CharField(
+        required=False,
         label="Description",
         widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5'})
     )
     sub_category = forms.CharField(
+        required=False,
         label="Sub Category",
         widget=forms.widgets.TextInput(attrs={'class': 'form-control col-sm-5'})
     )
     image = forms.ImageField(
+        required=False,
         label="Image",
         widget=forms.widgets.FileInput(attrs={'class': 'form-control col-sm-5'})
     )
@@ -122,6 +131,14 @@ class SearchConditionForm(forms.Form):
     Sort_By_Price1 = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'type': 'button', 'value': 'Ascend↑', 'onclick': "setSortBy('price'); document.getElementById('search').submit();"}))
 
     Sort_By_Price2 = forms.CharField(required=False, widget=forms.widgets.TextInput(attrs={'type': 'button', 'value': 'Descend↓', 'onclick': "setSortBy('-price'); document.getElementById('search').submit();"}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['category'].choices += [(c.id, c.id) for c in Category.objects.all()]
+        self.fields['type'].choices += [(t.id, t.id) for t in Type.objects.all()]
+        self.fields['brand'].choices += [(b.id, b.id) for b in Brand.objects.all()]
+
+
 
 class SearchProduct(forms.Form):
     """ Form used for search conditions in /search page """

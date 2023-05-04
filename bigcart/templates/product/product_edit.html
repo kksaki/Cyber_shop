@@ -10,7 +10,7 @@ Bigbasket Shopping Edit
 <div class="logy">
     <h2 class="title">Edit Product {{ product.productNo }}</h2>
     <div class="my-div">
-        <form method="POST" class="my-form" enctype="multipart/form-data">
+        <form method="POST" class="my-form" enctype="multipart/form-data" >
             {% csrf_token %}
             <div class="table">{{ form }}</div>
 

@@ -1,0 +1,97 @@
+[
+    {
+        "model": "bigcart.Category",
+        "pk": "seafood",
+        "fields": {
+            "id":"seafood"
+        }
+    },
+
+    {
+        "model": "bigcart.Brand",
+        "pk": "fishman",
+        "fields": {
+            "id":"fishman"
+        }
+    },
+
+    {
+        "model": "bigcart.Type",
+        "pk": "organic",
+        "fields": {
+            "id":"organic"
+        }
+    },
+
+    {
+        "model": "bigcart.Product",
+        "pk": 7000,
+        "fields": {
+            "productNo": 7000,
+            "productName": "Very Tasty - cod",
+            "category": "seafood",
+            "sub_category": "fish",
+            "brand": "fishman",
+            "price": 10,
+            "types": "organic",
+            "rating": 5,
+            "description": "very nice",
+            "created_date": "2020-10-14T00:00:00Z",
+            "image": "products/2023/05/03/111.jpg"
+        }
+    },
+
+    {
+        "model": "bigcart.cart",
+        "pk": 1,
+        "fields": {
+            "id":1,
+            "product_id":7000,
+            "quantity": 2,
+            "created_date": "2020-11-11T00:00:00Z"
+        }
+    },
+
+    {
+        "model": "auth.User",
+        "pk": 1,
+        "fields": {
+            "id": 1,
+            "last_login": "2021-09-10T00:00:00Z",
+            "is_superuser": true,
+            "username": "saki",
+            "first_name": "Jiaqi",
+            "last_name": "Sun",
+            "email": "kk@outlook.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-09-10T00:00:00Z"
+        }
+    },
+
+    {
+        "model": "bigcart.Customer",
+        "pk": 1,
+        "fields": {
+            "user_id": 1,
+            "username": "saki",
+            "first_name": "Jiaqi",
+            "last_name": "Sun",
+            "email": "kk@outlook.com",
+            "created_date": "2021-09-10T00:00:00Z"
+        }
+    },
+
+    {
+        "model": "bigcart.Coupon",
+        "pk": 999,
+        "fields": {
+            "code": 999,
+            "valid_from": "2020-10-10T00:00:00Z",
+            "valid_to": "2020-12-20T00:00:00Z",
+            "discount": 80,
+            "active": true
+        }
+    }
+
+]

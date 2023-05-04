@@ -37,8 +37,8 @@ def product_list(request):
     return render(request, 'product/list.html', {'page_obj': page_obj, 'cnt': len(product_list),'form2': form2})
 
 def details(request, productNo):
-    form2 = SearchConditionForm()
     product = get_object_or_404(Product, productNo=productNo)
+    form2 = SearchConditionForm()
     cart_product_form = CartAddProductForm()
     return render(request, 'product/product_details.html', {'product': product, 'cart_product_form': cart_product_form,'form2': form2})
 
@@ -108,7 +108,7 @@ def chart(request):
 
 def search(request):
     form2 = SearchProduct()
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('productNo')
     productName = ''
     category = ''
     d_type = ''
