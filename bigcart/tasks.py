@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from .models import Order
 from .celery import app
 
-# app = Celery('tasks', broker='pyamqp://guest@localhost//')
+app = Celery('tasks', broker='amqps://fomkhlpf:JhOo7qqwz-zIflyHfPa-PtcdhHBi0GeO@chimpanzee.rmq.cloudamqp.com/fomkhlpf')
 
 @shared_task
 def order_created(order_id):

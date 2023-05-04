@@ -7,7 +7,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
 
 app = Celery('bigcart',
-             broker='pyamqp://guest@localhost//',
+             broker='amqp://',
              backend='rpc://',
              include=['bigcart.tasks'])
 

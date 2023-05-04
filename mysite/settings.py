@@ -174,7 +174,7 @@ MEDIA_URL = 'media/'
 # import dj_database_url
 
 
-BROKER_URL = 'amqp://guest:guest@localhost:5672/dev'
+BROKER_URL='amqps://fomkhlpf:JhOo7qqwz-zIflyHfPa-PtcdhHBi0GeO@chimpanzee.rmq.cloudamqp.com/fomkhlpf'
 
 
 
