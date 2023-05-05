@@ -11,12 +11,23 @@ https://shrouded-everglades-97784.herokuapp.com/
 
 [BIGBASKET PRODUCT | CHINMAY SHANBHAG ](https://www.kaggle.com/datasets/chinmayshanbhag/big-basket-products) by Kaggle
 
-<<<<<<< HEAD
+The original database did not contain images, so I added a column of data to the database to store images of the products. There are so many items that only the first 20 items have images uploaded, therefore not all items will display images.
+
+
 ⚠️ There is a slight difference between codio and github commits, due to the different settings required for localhost, celery and rabbitmq to run locally and on codio
 
+⚠️ Due to the chromedriver problem with the behave test, the test results may not be displayed on codio. However, locally the behave test works well as follows:
 
-=======
->>>>>>> 037cab08645c1a08835fcf3aba7cec4c5024590c
+## Bank cards used to test payments:
+
+```
+card Number: 4111 1111 1111 1111
+
+CVV: 123
+
+ExpireDate: 12/24
+```
+
 ## Starting Server
 
 Create `.env` file in root directory with below contents.
