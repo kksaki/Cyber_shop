@@ -14,19 +14,21 @@ body{
     display: block;
     position: relative;
 }
+
 * { box-sizing: border-box; }
 :root {
     --uk-leader-fill-content: .;
 }
+
 :root {
     --uk-breakpoint-s: 640px;
     --uk-breakpoint-m: 960px;
     --uk-breakpoint-l: 1200px;
     --uk-breakpoint-xl: 1600px;
 }
+
 *, *::before, *::after {
     box-sizing: border-box;
-
 }
 
 
