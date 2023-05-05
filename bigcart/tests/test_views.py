@@ -4,8 +4,6 @@ from ..models import User
 from django.core.management import call_command
 
 
-
-
 class BigcartViewsTest(TestCase):
 
     fixtures = ['cart.json']
@@ -50,7 +48,7 @@ class BigcartViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Sort by rating1:")
 
-    14
+    # 14
     def test_views_all_use_correct_template(self):
         response = self.client.get(reverse('search'))
         self.assertEqual(response.status_code,200)
