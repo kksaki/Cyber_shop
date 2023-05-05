@@ -13,21 +13,13 @@ https://shrouded-everglades-97784.herokuapp.com/
 
 The original database did not contain images, so I added a column of data to the database to store images of the products. There are so many items that only the first 20 items have images uploaded, therefore not all items will display images.
 
+## Note
 
 ⚠️ There is a slight difference between codio and github commits, due to the different settings required for localhost, celery and rabbitmq to run locally and on codio
 
 ⚠️ Due to the chromedriver problem with the behave test, the test results may not be displayed on codio. However, locally the behave test works well as follows:
 ![Image text](staticfiles/note.png)
 
-## Bank cards used to test payments:
-
-```
-card Number: 4111 1111 1111 1111
-
-CVV: 123
-
-ExpireDate: 12/24
-```
 
 ## Starting Server
 
@@ -83,3 +75,20 @@ python3 manage.py migrate
 pip list --format=freeze > requirements.txt
 ```
 
+## For Payment:
+
+```
+rabbitmq-server
+	
+celery -A bigcart worker -l info
+```
+
+## Bank cards used to test payments:
+
+```
+card Number: 4111 1111 1111 1111
+
+CVV: 123
+
+ExpireDate: 12/24
+```
