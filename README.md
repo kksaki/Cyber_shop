@@ -11,6 +11,12 @@ https://shrouded-everglades-97784.herokuapp.com/
 
 [BIGBASKET PRODUCT | CHINMAY SHANBHAG ](https://www.kaggle.com/datasets/chinmayshanbhag/big-basket-products) by Kaggle
 
+<<<<<<< HEAD
+⚠️ There is a slight difference between codio and github commits, due to the different settings required for localhost, celery and rabbitmq to run locally and on codio
+
+
+=======
+>>>>>>> 037cab08645c1a08835fcf3aba7cec4c5024590c
 ## Starting Server
 
 Create `.env` file in root directory with below contents.
@@ -63,4 +69,8 @@ python3 manage.py migrate
 ```commandline
 # create requirements.txt
 pip list --format=freeze > requirements.txt
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 037cab08645c1a08835fcf3aba7cec4c5024590c

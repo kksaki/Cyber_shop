@@ -182,4 +182,4 @@ BROKER_URL='amqps://fomkhlpf:JhOo7qqwz-zIflyHfPa-PtcdhHBi0GeO@chimpanzee.rmq.clo
 #     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
 # }
 
-CSRF_TRUSTED_ORIGINS = ['https://inchpanama-nylonarnold-80.codio-box.uk']
+CSRF_TRUSTED_ORIGINS = ['https://inchpanama-nylonarnold-80.codio-box.uk','https://shrouded-everglades-97784.herokuapp.com/search']
