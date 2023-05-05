@@ -83,6 +83,4 @@ python3 manage.py migrate
 pip list --format=freeze > requirements.txt
 <<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 037cab08645c1a08835fcf3aba7cec4c5024590c
+
