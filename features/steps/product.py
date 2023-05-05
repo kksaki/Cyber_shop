@@ -6,6 +6,13 @@ import tempfile
 from selenium.webdriver.support.ui import Select
 
 
+from django.test import Client
+from bigcart.models import User
+from django.contrib.auth.hashers import make_password
+import random
+import string
+
+
 with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as f:
     im = Image.new('RGB', (100, 100))
     im.save(f.name)
@@ -122,3 +129,36 @@ def step_impl(context):
 @then(u'we will find \'7000\'')
 def step_impl(context):
     assert '7000' in context.browser.page_source
+
+
+
+
+@given('a customer is logging in')
+def step_given_a_user_is_logged_in(context):
+    # Create a test user and log them in
+    User.objects.filter(username='admin-test').delete()
+    context.user = User.objects.create(username='admin-test', password=make_password('123456'))
+    context.client = Client()  # Initialize Django test client
+    response = context.client.post('/accountslogin/', {'username': 'admin-test', 'password': '123456'})
+    assert response.status_code == 302
+
+@when('the customer is accessing their cart')
+def step_when_the_customer_visits_their_cart(context):
+    # Access the cart page
+    response = context.client.get('/cart-detail/')
+    context.cart_response = response
+
+@then('the cart should be displayed with the correct products and quantities')
+def step_then_the_cart_should_be_displayed_with_the_correct_products_and_quantities(context):
+    # Check the cart response
+    assert context.cart_response.status_code == 200
+
+@when('the customer is accessing their order history')
+def step_when_the_customer_visits_their_order_history(context):
+    # Access the order history page
+    context.order_response = context.client.get('/order_list/')
+
+@then('the order history should display the correct orders with product information')
+def step_then_the_order_history_should_display_the_correct_orders_with_product_information(context):
+    # Check the order history response
+    assert context.order_response.status_code == 200
