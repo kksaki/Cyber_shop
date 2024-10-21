@@ -17,7 +17,7 @@ import environ
 
 
 env = environ.Env()
-env.read_env(".env")
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # os.environ.setdefault('DATABASE_URL', 'postgres://aivlrtbvmwdhka:d3e6019752a20086c87d5add79bb2ed4c1de004c8caea0c9c771ebf3f8f337fa@ec2-34-193-110-25.compute-1.amazonaws.com:5432/d7d4tibl4m093s6')
